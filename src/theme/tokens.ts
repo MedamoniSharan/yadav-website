@@ -16,6 +16,7 @@ export const COLORS = {
 } as const;
 
 export const ASSETS = {
+  introVideo: '/assets/aistudio/Generated_Video_November_16__2026_-_12_12AM_33f2fa16.mp4',
   krishnaSplash: '/assets/aistudio/image_044b9766.png',
   splashTopScene: '/assets/images/splash-top-scene.png',
   splashBottomSunset: '/assets/images/splash-bottom-sunset.png',
