@@ -1,0 +1,6 @@
+{
+  "name": "Yadav Community",
+  "description": "Connect • Promote • Grow Together — A digital community platform for Yadav community members to connect, discover Yadav-owned businesses, publish advertisements, share videos, and join community groups.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

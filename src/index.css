@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@layer base {
+  html,
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #FFF8ED;
+    color: #061B46;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+.font-display {
+  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+}
+
+.font-ui {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.bg-krishna-header {
+  background: linear-gradient(180deg, #061B46 0%, #092653 60%, #0B347A 100%);
+}
+
+.bg-royal-pill {
+  background: linear-gradient(90deg, #072255 0%, #0D3882 55%, #164DA8 100%);
+}
+
+.bg-gold-orb {
+  background: linear-gradient(145deg, #F5D58B 0%, #E9A526 48%, #C98515 100%);
+}
+
+.bg-cream-canvas {
+  background-color: #FFF8ED;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
