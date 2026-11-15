@@ -1,19 +1,19 @@
 import React from 'react';
-import {
-  Bell,
-  CheckCheck,
-  Heart,
-  MessageCircle,
-  Store,
-  UserPlus,
-  Users,
-  Volume2,
-  VolumeX,
-  X,
-} from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { AppNotification } from '../../models/types';
 import { ASSETS } from '../../theme/tokens';
+import {
+  IgBellIcon,
+  IgCloseIcon,
+  IgCommentIcon,
+  IgCommunityIcon,
+  IgDoubleCheckIcon,
+  IgHeartIcon,
+  IgShopIcon,
+  IgUserPlusIcon,
+  IgVolumeOffIcon,
+  IgVolumeOnIcon,
+} from '../icons/AppIcons';
 
 interface NotificationDrawerProps {
   isOpen: boolean;
@@ -38,15 +38,15 @@ export const NotificationDrawer: React.FC<NotificationDrawerProps> = ({ isOpen, 
   const getIcon = (type: AppNotification['type']) => {
     switch (type) {
       case 'like':
-        return <Heart className="w-4 h-4 text-[#E11D48] fill-[#E11D48]" />;
+        return <IgHeartIcon filled className="w-4 h-4 text-[#ED4956]" />;
       case 'comment':
-        return <MessageCircle className="w-4 h-4 text-[#0B347A]" />;
+        return <IgCommentIcon className="w-4 h-4 text-[#0B347A]" />;
       case 'follow':
-        return <UserPlus className="w-4 h-4 text-[#087D75]" />;
+        return <IgUserPlusIcon className="w-4 h-4 text-[#087D75]" />;
       case 'group':
-        return <Users className="w-4 h-4 text-[#7C5CFC]" />;
+        return <IgCommunityIcon filled className="w-4 h-4 text-[#7C5CFC]" />;
       case 'business':
-        return <Store className="w-4 h-4 text-[#D99B27]" />;
+        return <IgShopIcon filled className="w-4 h-4 text-[#D99B27]" />;
     }
   };
 
@@ -64,7 +64,7 @@ export const NotificationDrawer: React.FC<NotificationDrawerProps> = ({ isOpen, 
       >
         <div className="bg-krishna-header text-white px-5 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <Bell className="w-5 h-5 text-[#F5D58B] shrink-0" />
+            <IgBellIcon className="w-5 h-5 text-[#F5D58B] shrink-0" filled={unreadNotificationsCount > 0} />
             <h2 className="font-display text-xl font-semibold">Notifications</h2>
             {unreadNotificationsCount > 0 && (
               <span className="px-2 py-0.5 rounded-full bg-[#E9A526] text-[#061B46] text-xs font-bold tabular-nums">
@@ -89,9 +89,9 @@ export const NotificationDrawer: React.FC<NotificationDrawerProps> = ({ isOpen, 
               className="min-w-[40px] min-h-[40px] flex items-center justify-center rounded-full hover:bg-white/10 text-[#F5D58B] cursor-pointer"
             >
               {notificationSoundEnabled ? (
-                <Volume2 className="w-5 h-5" />
+                <IgVolumeOnIcon className="w-5 h-5" />
               ) : (
-                <VolumeX className="w-5 h-5 text-white/60" />
+                <IgVolumeOffIcon className="w-5 h-5 text-white/60" />
               )}
             </button>
             <button
@@ -100,7 +100,7 @@ export const NotificationDrawer: React.FC<NotificationDrawerProps> = ({ isOpen, 
               aria-label="Close notifications"
               className="min-w-[40px] min-h-[40px] flex items-center justify-center rounded-full hover:bg-white/10 cursor-pointer"
             >
-              <X className="w-5 h-5" />
+              <IgCloseIcon className="w-5 h-5" />
             </button>
           </div>
         </div>
@@ -111,7 +111,7 @@ export const NotificationDrawer: React.FC<NotificationDrawerProps> = ({ isOpen, 
             onClick={triggerSampleNotification}
             className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#061B46] bg-[#FFF8ED] border border-[#EADBC2] hover:border-[#D99B27] px-2.5 py-1 rounded-full cursor-pointer whitespace-nowrap"
           >
-            <Volume2 className="w-3.5 h-3.5 text-[#D99B27]" />
+            <IgVolumeOnIcon className="w-3.5 h-3.5 text-[#D99B27]" />
             <span>Test &ldquo;Jai Shri Krishna&rdquo;</span>
           </button>
           <button
@@ -119,7 +119,7 @@ export const NotificationDrawer: React.FC<NotificationDrawerProps> = ({ isOpen, 
             onClick={markAllNotificationsRead}
             className="inline-flex items-center gap-1 text-xs font-semibold text-[#0B347A] hover:underline cursor-pointer whitespace-nowrap"
           >
-            <CheckCheck className="w-3.5 h-3.5" />
+            <IgDoubleCheckIcon className="w-3.5 h-3.5" />
             <span>Mark all read</span>
           </button>
         </div>

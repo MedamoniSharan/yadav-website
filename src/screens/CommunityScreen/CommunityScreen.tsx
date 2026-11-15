@@ -1,18 +1,17 @@
 import React, { useMemo, useState } from 'react';
-import {
-  ArrowLeft,
-  Briefcase,
-  Calendar,
-  Check,
-  Heart,
-  Megaphone,
-  MessageCircle,
-  Send,
-  Share2,
-  Users,
-  X,
-} from 'lucide-react';
 import { SafeImage } from '../../components/common/KrishnaDecorations';
+import {
+  IgBackIcon,
+  IgBriefcaseIcon,
+  IgCalendarIcon,
+  IgCheckIcon,
+  IgCloseIcon,
+  IgCommentIcon,
+  IgCommunityIcon,
+  IgHeartIcon,
+  IgMegaphoneIcon,
+  IgSharePlaneIcon,
+} from '../../components/icons/AppIcons';
 import { useApp } from '../../context/AppContext';
 import { CommunityGroup } from '../../models/types';
 import { ASSETS } from '../../theme/tokens';
@@ -57,13 +56,13 @@ export const CommunityScreen: React.FC = () => {
   const renderGroupIcon = (iconKey: CommunityGroup['iconKey']) => {
     switch (iconKey) {
       case 'discussion':
-        return <Users className="w-6 h-6 text-white" />;
+        return <IgCommunityIcon className="w-6 h-6 text-white" />;
       case 'promotions':
-        return <Megaphone className="w-6 h-6 text-white" />;
+        return <IgMegaphoneIcon className="w-6 h-6 text-white" />;
       case 'jobs':
-        return <Briefcase className="w-6 h-6 text-white" />;
+        return <IgBriefcaseIcon className="w-6 h-6 text-white" />;
       case 'events':
-        return <Calendar className="w-6 h-6 text-white" />;
+        return <IgCalendarIcon className="w-6 h-6 text-white" />;
     }
   };
 
@@ -93,7 +92,7 @@ export const CommunityScreen: React.FC = () => {
             aria-label="Go back"
             className="min-w-[44px] min-h-[44px] -ml-2 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors cursor-pointer"
           >
-            <ArrowLeft className="w-5 h-5 text-white" />
+            <IgBackIcon className="w-5 h-5 text-white" />
           </button>
 
           <h1 className="font-display text-[24px] sm:text-[26px] font-semibold tracking-wide text-white">
@@ -222,7 +221,7 @@ export const CommunityScreen: React.FC = () => {
                 {group.isJoined ? (
                   <>
                     <span>Joined</span>
-                    <Check className="w-3.5 h-3.5" />
+                    <IgCheckIcon className="w-3.5 h-3.5" />
                   </>
                 ) : (
                   <span>Join</span>
@@ -299,7 +298,7 @@ export const CommunityScreen: React.FC = () => {
                   aria-label="Close group"
                   className="w-9 h-9 rounded-full hover:bg-white/10 flex items-center justify-center cursor-pointer"
                 >
-                  <X className="w-5 h-5" />
+                  <IgCloseIcon className="w-5 h-5" />
                 </button>
               </div>
             </div>
@@ -325,7 +324,7 @@ export const CommunityScreen: React.FC = () => {
                 disabled={!newPostText.trim()}
                 className="px-4 py-2 rounded-full bg-royal-pill text-white text-xs font-semibold disabled:opacity-45 cursor-pointer shrink-0 inline-flex items-center gap-1"
               >
-                <Send className="w-3.5 h-3.5" />
+                <IgSharePlaneIcon className="w-3.5 h-3.5" />
                 <span>Post</span>
               </button>
             </form>
@@ -366,11 +365,12 @@ export const CommunityScreen: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => toggleLikeGroupDiscussion(activeGroup.id, disc.id)}
-                        className="inline-flex items-center gap-1.5 hover:text-[#E11D48] cursor-pointer"
+                        className="inline-flex items-center gap-1.5 hover:text-[#ED4956] cursor-pointer"
                       >
-                        <Heart
+                        <IgHeartIcon
+                          filled={disc.isLiked}
                           className={`w-4 h-4 ${
-                            disc.isLiked ? 'fill-[#E11D48] text-[#E11D48]' : ''
+                            disc.isLiked ? 'text-[#ED4956]' : ''
                           }`}
                         />
                         <span className="tabular-nums">{disc.likesCount}</span>
@@ -383,7 +383,7 @@ export const CommunityScreen: React.FC = () => {
                         }
                         className="inline-flex items-center gap-1.5 hover:text-[#061B46] cursor-pointer"
                       >
-                        <MessageCircle className="w-4 h-4" />
+                        <IgCommentIcon className="w-4 h-4" />
                         <span className="tabular-nums">{disc.comments.length}</span>
                       </button>
 
@@ -392,7 +392,7 @@ export const CommunityScreen: React.FC = () => {
                         onClick={() => showToast('Discussion link shared!')}
                         className="inline-flex items-center gap-1.5 hover:text-[#0B347A] cursor-pointer"
                       >
-                        <Share2 className="w-4 h-4" />
+                        <IgSharePlaneIcon className="w-4 h-4" />
                         <span>Share</span>
                       </button>
                     </div>

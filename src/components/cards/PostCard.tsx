@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
-import {
-  Bookmark,
-  Calendar,
-  Heart,
-  MapPin,
-  MessageCircle,
-  MoreHorizontal,
-  Send,
-  Share2,
-} from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { CommunityPost } from '../../models/types';
 import { GoldenCowEmblem, SafeImage, VerifiedBadge } from '../common/KrishnaDecorations';
+import {
+  IgBookmarkIcon,
+  IgCalendarIcon,
+  IgCommentIcon,
+  IgHeartIcon,
+  IgMapPinIcon,
+  IgMoreDotsIcon,
+  IgSharePlaneIcon,
+} from '../icons/AppIcons';
 import { AutoPlayVideo } from '../media/AutoPlayVideo';
 import { VideoPlayerModal } from '../media/VideoPlayerModal';
 
@@ -104,7 +103,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
             aria-label="Post options"
             className="min-w-[36px] min-h-[36px] flex items-center justify-center rounded-full text-[#667085] hover:bg-[#FFF8ED] hover:text-[#061B46] cursor-pointer"
           >
-            <MoreHorizontal className="w-5 h-5" />
+            <IgMoreDotsIcon className="w-5 h-5" />
           </button>
           {showMenu && (
             <div className="absolute right-0 mt-1 w-44 rounded-xl bg-white border border-[#EADBC2] shadow-lg py-1 z-20 text-xs">
@@ -152,13 +151,13 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
           <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs font-medium text-[#0B347A]">
             {post.eventDate && (
               <span className="inline-flex items-center gap-1">
-                <Calendar className="w-3.5 h-3.5 text-[#D99B27]" />
+                <IgCalendarIcon className="w-3.5 h-3.5 text-[#D99B27]" />
                 {post.eventDate}
               </span>
             )}
             {post.eventVenue && (
               <span className="inline-flex items-center gap-1">
-                <MapPin className="w-3.5 h-3.5 text-[#D99B27]" />
+                <IgMapPinIcon className="w-3.5 h-3.5 text-[#D99B27]" />
                 {post.eventVenue}
               </span>
             )}
@@ -237,12 +236,13 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
           <button
             type="button"
             onClick={() => toggleLikePost(post.id)}
-            className="inline-flex items-center gap-1.5 min-h-[36px] text-xs font-semibold text-[#1D2939] hover:text-[#E11D48] transition-colors cursor-pointer"
+            className="inline-flex items-center gap-1.5 min-h-[36px] text-xs font-semibold text-[#1D2939] hover:text-[#ED4956] transition-colors cursor-pointer"
             aria-label={post.isLiked ? 'Unlike post' : 'Like post'}
           >
-            <Heart
-              className={`w-[18px] h-[18px] transition-transform active:scale-125 ${
-                post.isLiked ? 'fill-[#E11D48] text-[#E11D48]' : 'text-[#475467]'
+            <IgHeartIcon
+              filled={post.isLiked}
+              className={`w-[20px] h-[20px] transition-transform active:scale-125 ${
+                post.isLiked ? 'text-[#ED4956]' : 'text-[#262626]'
               }`}
             />
             <span className="tabular-nums">{post.likesCount}</span>
@@ -251,10 +251,10 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
           <button
             type="button"
             onClick={() => setShowComments((c) => !c)}
-            className="inline-flex items-center gap-1.5 min-h-[36px] text-xs font-semibold text-[#475467] hover:text-[#061B46] transition-colors cursor-pointer"
+            className="inline-flex items-center gap-1.5 min-h-[36px] text-xs font-semibold text-[#262626] hover:text-[#061B46] transition-colors cursor-pointer"
             aria-label="Comments"
           >
-            <MessageCircle className="w-[18px] h-[18px]" />
+            <IgCommentIcon className="w-[20px] h-[20px]" />
             <span className="tabular-nums">
               {post.id === 'post_fitzone_01' ? 36 + post.comments.length : post.comments.length}
             </span>
@@ -263,10 +263,10 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
           <button
             type="button"
             onClick={() => sharePost(post.id)}
-            className="inline-flex items-center gap-1.5 min-h-[36px] text-xs font-semibold text-[#475467] hover:text-[#0B347A] transition-colors cursor-pointer"
+            className="inline-flex items-center gap-1.5 min-h-[36px] text-xs font-semibold text-[#262626] hover:text-[#0B347A] transition-colors cursor-pointer"
             aria-label="Share post"
           >
-            <Share2 className="w-[18px] h-[18px]" />
+            <IgSharePlaneIcon className="w-[20px] h-[20px]" />
             <span className="tabular-nums">{post.sharesCount}</span>
           </button>
         </div>
@@ -277,9 +277,10 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
           aria-label={post.isSaved ? 'Remove bookmark' : 'Save post'}
           className="min-w-[36px] min-h-[36px] flex items-center justify-center rounded-full hover:bg-[#FFF8ED] cursor-pointer"
         >
-          <Bookmark
-            className={`w-[18px] h-[18px] ${
-              post.isSaved ? 'fill-[#D99B27] text-[#D99B27]' : 'text-[#475467]'
+          <IgBookmarkIcon
+            filled={post.isSaved}
+            className={`w-[20px] h-[20px] ${
+              post.isSaved ? 'text-[#061B46]' : 'text-[#262626]'
             }`}
           />
         </button>
@@ -325,7 +326,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
               aria-label="Send comment"
               className="w-9 h-9 rounded-full bg-royal-pill text-white flex items-center justify-center disabled:opacity-45 cursor-pointer shrink-0"
             >
-              <Send className="w-4 h-4" />
+              <IgSharePlaneIcon className="w-4 h-4" />
             </button>
           </form>
         </div>

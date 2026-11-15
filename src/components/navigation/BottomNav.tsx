@@ -1,7 +1,13 @@
 import React from 'react';
-import { Home, Plus, Store, User, Users } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { MainTabId } from '../../models/types';
+import {
+  IgCommunityIcon,
+  IgHomeIcon,
+  IgPlusIcon,
+  IgProfileIcon,
+  IgShopIcon,
+} from '../icons/AppIcons';
 
 export const BottomNav: React.FC = () => {
   const { activeTab, setActiveTab } = useApp();
@@ -25,11 +31,7 @@ export const BottomNav: React.FC = () => {
             activeTab === 'home' ? 'text-[#061B46]' : 'text-[#5C6B84] hover:text-[#061B46]'
           }`}
         >
-          <Home
-            className="w-[22px] h-[22px]"
-            strokeWidth={activeTab === 'home' ? 2.4 : 1.8}
-            fill={activeTab === 'home' ? '#061B46' : 'none'}
-          />
+          <IgHomeIcon className="w-[23px] h-[23px]" filled={activeTab === 'home'} />
           <span
             className={`text-[11px] mt-0.5 leading-tight whitespace-nowrap ${
               activeTab === 'home' ? 'font-bold text-[#061B46]' : 'font-medium'
@@ -47,10 +49,7 @@ export const BottomNav: React.FC = () => {
             activeTab === 'businesses' ? 'text-[#061B46]' : 'text-[#5C6B84] hover:text-[#061B46]'
           }`}
         >
-          <Store
-            className="w-[22px] h-[22px]"
-            strokeWidth={activeTab === 'businesses' ? 2.3 : 1.8}
-          />
+          <IgShopIcon className="w-[23px] h-[23px]" filled={activeTab === 'businesses'} />
           <span
             className={`text-[11px] mt-0.5 leading-tight whitespace-nowrap ${
               activeTab === 'businesses' ? 'font-bold text-[#061B46]' : 'font-medium'
@@ -70,7 +69,7 @@ export const BottomNav: React.FC = () => {
               activeTab === 'create' ? 'ring-[#E9A526]/40 scale-105' : ''
             }`}
           >
-            <Plus className="w-7 h-7 stroke-[2.6]" />
+            <IgPlusIcon className="w-7 h-7" strokeWidth={2.5} />
           </button>
         </div>
 
@@ -82,10 +81,7 @@ export const BottomNav: React.FC = () => {
             activeTab === 'community' ? 'text-[#061B46]' : 'text-[#5C6B84] hover:text-[#061B46]'
           }`}
         >
-          <Users
-            className="w-[22px] h-[22px]"
-            strokeWidth={activeTab === 'community' ? 2.3 : 1.8}
-          />
+          <IgCommunityIcon className="w-[23px] h-[23px]" filled={activeTab === 'community'} />
           <span
             className={`text-[11px] mt-0.5 leading-tight whitespace-nowrap ${
               activeTab === 'community' ? 'font-bold text-[#061B46]' : 'font-medium'
@@ -103,10 +99,7 @@ export const BottomNav: React.FC = () => {
             activeTab === 'profile' ? 'text-[#061B46]' : 'text-[#5C6B84] hover:text-[#061B46]'
           }`}
         >
-          <User
-            className="w-[22px] h-[22px]"
-            strokeWidth={activeTab === 'profile' ? 2.3 : 1.8}
-          />
+          <IgProfileIcon className="w-[23px] h-[23px]" filled={activeTab === 'profile'} />
           <span
             className={`text-[11px] mt-0.5 leading-tight whitespace-nowrap ${
               activeTab === 'profile' ? 'font-bold text-[#061B46]' : 'font-medium'

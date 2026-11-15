@@ -1,25 +1,4 @@
 import React, { useMemo, useState } from 'react';
-import {
-  ArrowLeft,
-  Building2,
-  Car,
-  Check,
-  ChevronRight,
-  Dumbbell,
-  ExternalLink,
-  Heart,
-  HeartPulse,
-  Laptop,
-  LayoutGrid,
-  MapPin,
-  Phone,
-  Plus,
-  Search,
-  ShoppingBag,
-  Star,
-  UtensilsCrossed,
-  X,
-} from 'lucide-react';
 import { BusinessCard } from '../../components/cards/BusinessCard';
 import { PostCard } from '../../components/cards/PostCard';
 import {
@@ -27,20 +6,40 @@ import {
   VerifiedBadge,
   VrindavanSilhouetteFooter,
 } from '../../components/common/KrishnaDecorations';
+import {
+  IgAutoIcon,
+  IgBackIcon,
+  IgCheckIcon,
+  IgChevronRightIcon,
+  IgCloseIcon,
+  IgExternalLinkIcon,
+  IgFashionIcon,
+  IgFitnessIcon,
+  IgFoodIcon,
+  IgHealthIcon,
+  IgHeartIcon,
+  IgMapPinIcon,
+  IgMoreGridIcon,
+  IgPhoneIcon,
+  IgPlusIcon,
+  IgRealEstateIcon,
+  IgSearchIcon,
+  IgTechIcon,
+} from '../../components/icons/AppIcons';
 import { BUSINESS_CATEGORIES } from '../../constants/mockData';
 import { useApp } from '../../context/AppContext';
 import { Business, BusinessCategory } from '../../models/types';
 import { ASSETS } from '../../theme/tokens';
 
 const CATEGORY_ICONS: Record<BusinessCategory, React.ReactNode> = {
-  Food: <UtensilsCrossed className="w-6 h-6" strokeWidth={1.9} />,
-  Fitness: <Dumbbell className="w-6 h-6" strokeWidth={1.9} />,
-  Fashion: <ShoppingBag className="w-6 h-6" strokeWidth={1.9} />,
-  'IT Services': <Laptop className="w-6 h-6" strokeWidth={1.9} />,
-  'Real Estate': <Building2 className="w-6 h-6" strokeWidth={1.9} />,
-  Automotive: <Car className="w-6 h-6" strokeWidth={1.9} />,
-  Healthcare: <HeartPulse className="w-6 h-6" strokeWidth={1.9} />,
-  More: <LayoutGrid className="w-6 h-6" strokeWidth={1.9} />,
+  Food: <IgFoodIcon className="w-6 h-6" />,
+  Fitness: <IgFitnessIcon className="w-6 h-6" />,
+  Fashion: <IgFashionIcon className="w-6 h-6" />,
+  'IT Services': <IgTechIcon className="w-6 h-6" />,
+  'Real Estate': <IgRealEstateIcon className="w-6 h-6" />,
+  Automotive: <IgAutoIcon className="w-6 h-6" />,
+  Healthcare: <IgHealthIcon className="w-6 h-6" />,
+  More: <IgMoreGridIcon className="w-6 h-6" />,
 };
 
 export const BusinessesScreen: React.FC = () => {
@@ -108,7 +107,7 @@ export const BusinessesScreen: React.FC = () => {
               aria-label="Go back"
               className="min-w-[44px] min-h-[44px] -ml-2 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors cursor-pointer"
             >
-              <ArrowLeft className="w-5 h-5 text-white" />
+              <IgBackIcon className="w-5 h-5 text-white" />
             </button>
 
             <h1 className="font-display text-[24px] sm:text-[26px] font-semibold tracking-wide text-white">
@@ -120,7 +119,7 @@ export const BusinessesScreen: React.FC = () => {
 
           {/* Search Pill */}
           <div className="mt-3 relative">
-            <Search className="w-4 h-4 text-[#667085] absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <IgSearchIcon className="w-4 h-4 text-[#667085] absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
               type="search"
               value={searchQuery}
@@ -135,7 +134,7 @@ export const BusinessesScreen: React.FC = () => {
                 aria-label="Clear search"
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-[#667085] hover:text-[#061B46] p-1 cursor-pointer"
               >
-                <X className="w-4 h-4" />
+                <IgCloseIcon className="w-4 h-4" />
               </button>
             )}
           </div>
@@ -202,7 +201,7 @@ export const BusinessesScreen: React.FC = () => {
               className="inline-flex items-center gap-0.5 text-xs font-semibold text-[#0B347A] hover:underline cursor-pointer whitespace-nowrap"
             >
               <span>{showAllBusinesses ? 'Show Featured' : 'View All'}</span>
-              <ChevronRight className="w-3.5 h-3.5" />
+              <IgChevronRightIcon className="w-3.5 h-3.5" />
             </button>
           </div>
 
@@ -296,7 +295,7 @@ export const BusinessesScreen: React.FC = () => {
                 aria-label="Close business profile"
                 className="absolute top-3 right-3 w-10 h-10 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 cursor-pointer"
               >
-                <X className="w-5 h-5" />
+                <IgCloseIcon className="w-5 h-5" />
               </button>
 
               <div className="absolute bottom-4 left-4 right-4 text-white">
@@ -327,12 +326,12 @@ export const BusinessesScreen: React.FC = () => {
                 >
                   {selectedBusiness.isFollowed ? (
                     <>
-                      <Check className="w-4 h-4" />
+                      <IgCheckIcon className="w-4 h-4" />
                       <span>Following Business</span>
                     </>
                   ) : (
                     <>
-                      <Plus className="w-4 h-4" />
+                      <IgPlusIcon className="w-4 h-4" strokeWidth={2.4} />
                       <span>Follow Business</span>
                     </>
                   )}
@@ -344,10 +343,11 @@ export const BusinessesScreen: React.FC = () => {
                   aria-label="Save favorite"
                   className="min-w-[44px] min-h-[42px] px-3.5 rounded-full bg-white border border-[#EADBC2] flex items-center justify-center gap-1.5 text-xs font-semibold text-[#061B46] cursor-pointer"
                 >
-                  <Heart
+                  <IgHeartIcon
+                    filled={selectedBusiness.isFavorite}
                     className={`w-4 h-4 ${
                       selectedBusiness.isFavorite
-                        ? 'fill-[#E11D48] text-[#E11D48]'
+                        ? 'text-[#ED4956]'
                         : 'text-[#667085]'
                     }`}
                   />
@@ -379,11 +379,11 @@ export const BusinessesScreen: React.FC = () => {
 
                 <div className="pt-2 border-t border-[#F4E9D6] space-y-2 text-xs text-[#475467]">
                   <div className="flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-[#D99B27] shrink-0" />
+                    <IgMapPinIcon className="w-4 h-4 text-[#D99B27] shrink-0" />
                     <span>{selectedBusiness.location}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Phone className="w-4 h-4 text-[#D99B27] shrink-0" />
+                    <IgPhoneIcon className="w-4 h-4 text-[#D99B27] shrink-0" />
                     <a
                       href={`tel:${selectedBusiness.phone.replace(/\s+/g, '')}`}
                       onClick={() => showToast(`Calling ${selectedBusiness.phone}`, 'info')}
@@ -393,7 +393,7 @@ export const BusinessesScreen: React.FC = () => {
                     </a>
                   </div>
                   <div className="flex items-center gap-2">
-                    <ExternalLink className="w-4 h-4 text-[#D99B27] shrink-0" />
+                    <IgExternalLinkIcon className="w-4 h-4 text-[#D99B27] shrink-0" />
                     <button
                       type="button"
                       onClick={() =>

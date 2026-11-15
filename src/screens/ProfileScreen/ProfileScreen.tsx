@@ -1,25 +1,25 @@
 import React, { useMemo, useRef, useState } from 'react';
-import {
-  ArrowLeft,
-  Bookmark,
-  ChevronRight,
-  FileText,
-  Heart,
-  LogOut,
-  MapPin,
-  Pencil,
-  Settings,
-  Sparkles,
-  Store,
-  Users,
-  X,
-} from 'lucide-react';
 import { PostCard } from '../../components/cards/PostCard';
 import {
   PeacockCornerDecorations,
   SafeImage,
   VerifiedBadge,
 } from '../../components/common/KrishnaDecorations';
+import {
+  IgBackIcon,
+  IgBookmarkIcon,
+  IgChevronRightIcon,
+  IgCloseIcon,
+  IgCommunityIcon,
+  IgEditIcon,
+  IgHeartIcon,
+  IgLogoutIcon,
+  IgMapPinIcon,
+  IgPostGridIcon,
+  IgSettingsIcon,
+  IgShopIcon,
+  IgSparklesIcon,
+} from '../../components/icons/AppIcons';
 import { useApp } from '../../context/AppContext';
 import { ASSETS } from '../../theme/tokens';
 
@@ -100,7 +100,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onOpenAuth }) => {
             aria-label="Go back"
             className="min-w-[44px] min-h-[44px] -ml-2 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors cursor-pointer"
           >
-            <ArrowLeft className="w-5 h-5 text-white" />
+            <IgBackIcon className="w-5 h-5 text-white" />
           </button>
 
           <h1 className="font-display text-[24px] sm:text-[26px] font-semibold tracking-wide text-white">
@@ -113,7 +113,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onOpenAuth }) => {
             aria-label="Profile settings"
             className="min-w-[44px] min-h-[44px] -mr-2 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors cursor-pointer"
           >
-            <Settings className="w-5 h-5 text-white" />
+            <IgSettingsIcon className="w-5 h-5 text-white" />
           </button>
         </div>
       </header>
@@ -162,7 +162,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onOpenAuth }) => {
               aria-label="Change profile photo"
               className="absolute bottom-1 right-1 w-8 h-8 rounded-full bg-[#0B347A] text-white border-2 border-white shadow-md flex items-center justify-center hover:bg-[#061B46] transition-colors cursor-pointer"
             >
-              <Pencil className="w-3.5 h-3.5" />
+              <IgEditIcon className="w-3.5 h-3.5" />
             </button>
           </div>
 
@@ -176,7 +176,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onOpenAuth }) => {
           <p className="text-xs font-medium text-[#475467] mt-0.5">{user.roleLabel}</p>
 
           <p className="inline-flex items-center gap-1 text-xs text-[#667085] mt-1">
-            <MapPin className="w-3.5 h-3.5 text-[#D99B27]" />
+            <IgMapPinIcon className="w-3.5 h-3.5 text-[#D99B27]" />
             <span>{user.location}</span>
           </p>
 
@@ -203,7 +203,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onOpenAuth }) => {
             onClick={() => setActiveSheet('myPosts')}
             className="bg-white rounded-2xl border border-[#EADBC2]/80 shadow-[0_2px_10px_rgba(6,27,70,0.04)] py-3 px-1 flex flex-col items-center justify-center hover:border-[#D99B27] transition-colors cursor-pointer"
           >
-            <FileText className="w-5 h-5 text-[#D99B27]" strokeWidth={1.9} />
+            <IgPostGridIcon className="w-5 h-5 text-[#D99B27]" />
             <span className="mt-1.5 text-lg font-bold text-[#061B46] tabular-nums leading-none">
               {user.postsCount}
             </span>
@@ -211,7 +211,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onOpenAuth }) => {
           </button>
 
           <div className="bg-white rounded-2xl border border-[#EADBC2]/80 shadow-[0_2px_10px_rgba(6,27,70,0.04)] py-3 px-1 flex flex-col items-center justify-center">
-            <Heart className="w-5 h-5 text-[#D99B27]" strokeWidth={1.9} />
+            <IgHeartIcon className="w-5 h-5 text-[#D99B27]" />
             <span className="mt-1.5 text-lg font-bold text-[#061B46] tabular-nums leading-none">
               {user.likesCount}
             </span>
@@ -223,7 +223,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onOpenAuth }) => {
             onClick={() => setActiveSheet('myGroups')}
             className="bg-white rounded-2xl border border-[#EADBC2]/80 shadow-[0_2px_10px_rgba(6,27,70,0.04)] py-3 px-1 flex flex-col items-center justify-center hover:border-[#D99B27] transition-colors cursor-pointer"
           >
-            <Users className="w-5 h-5 text-[#D99B27]" strokeWidth={1.9} />
+            <IgCommunityIcon className="w-5 h-5 text-[#D99B27]" />
             <span className="mt-1.5 text-lg font-bold text-[#061B46] tabular-nums leading-none">
               {user.groupsCount}
             </span>
@@ -235,7 +235,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onOpenAuth }) => {
             onClick={() => setActiveSheet('savedPosts')}
             className="bg-white rounded-2xl border border-[#EADBC2]/80 shadow-[0_2px_10px_rgba(6,27,70,0.04)] py-3 px-1 flex flex-col items-center justify-center hover:border-[#D99B27] transition-colors cursor-pointer"
           >
-            <Bookmark className="w-5 h-5 text-[#D99B27]" strokeWidth={1.9} />
+            <IgBookmarkIcon className="w-5 h-5 text-[#D99B27]" />
             <span className="mt-1.5 text-lg font-bold text-[#061B46] tabular-nums leading-none">
               {user.savedCount}
             </span>
@@ -251,13 +251,13 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onOpenAuth }) => {
             className="w-full bg-white rounded-2xl border border-[#EADBC2]/80 shadow-[0_2px_10px_rgba(6,27,70,0.04)] px-4 py-3.5 flex items-center justify-between hover:border-[#D99B27] transition-colors cursor-pointer"
           >
             <span className="flex items-center gap-3.5 min-w-0">
-              <Store className="w-5 h-5 text-[#D99B27] shrink-0" />
+              <IgShopIcon className="w-5 h-5 text-[#D99B27] shrink-0" />
               <span className="text-[14px] font-bold text-[#061B46] truncate">
                 My Business{' '}
                 <span className="font-normal text-[#667085]">(Optional)</span>
               </span>
             </span>
-            <ChevronRight className="w-4 h-4 text-[#D99B27] shrink-0" />
+            <IgChevronRightIcon className="w-4 h-4 text-[#D99B27] shrink-0" />
           </button>
 
           <button
@@ -266,12 +266,12 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onOpenAuth }) => {
             className="w-full bg-white rounded-2xl border border-[#EADBC2]/80 shadow-[0_2px_10px_rgba(6,27,70,0.04)] px-4 py-3.5 flex items-center justify-between hover:border-[#D99B27] transition-colors cursor-pointer"
           >
             <span className="flex items-center gap-3.5 min-w-0">
-              <FileText className="w-5 h-5 text-[#D99B27] shrink-0" />
+              <IgPostGridIcon className="w-5 h-5 text-[#D99B27] shrink-0" />
               <span className="text-[14px] font-bold text-[#061B46] truncate">
                 My Posts
               </span>
             </span>
-            <ChevronRight className="w-4 h-4 text-[#D99B27] shrink-0" />
+            <IgChevronRightIcon className="w-4 h-4 text-[#D99B27] shrink-0" />
           </button>
 
           <button
@@ -280,12 +280,12 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onOpenAuth }) => {
             className="w-full bg-white rounded-2xl border border-[#EADBC2]/80 shadow-[0_2px_10px_rgba(6,27,70,0.04)] px-4 py-3.5 flex items-center justify-between hover:border-[#D99B27] transition-colors cursor-pointer"
           >
             <span className="flex items-center gap-3.5 min-w-0">
-              <Bookmark className="w-5 h-5 text-[#D99B27] shrink-0" />
+              <IgBookmarkIcon className="w-5 h-5 text-[#D99B27] shrink-0" />
               <span className="text-[14px] font-bold text-[#061B46] truncate">
                 Saved Posts
               </span>
             </span>
-            <ChevronRight className="w-4 h-4 text-[#D99B27] shrink-0" />
+            <IgChevronRightIcon className="w-4 h-4 text-[#D99B27] shrink-0" />
           </button>
 
           <button
@@ -294,12 +294,12 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onOpenAuth }) => {
             className="w-full bg-white rounded-2xl border border-[#EADBC2]/80 shadow-[0_2px_10px_rgba(6,27,70,0.04)] px-4 py-3.5 flex items-center justify-between hover:border-[#D99B27] transition-colors cursor-pointer"
           >
             <span className="flex items-center gap-3.5 min-w-0">
-              <Users className="w-5 h-5 text-[#D99B27] shrink-0" />
+              <IgCommunityIcon className="w-5 h-5 text-[#D99B27] shrink-0" />
               <span className="text-[14px] font-bold text-[#061B46] truncate">
                 My Groups
               </span>
             </span>
-            <ChevronRight className="w-4 h-4 text-[#D99B27] shrink-0" />
+            <IgChevronRightIcon className="w-4 h-4 text-[#D99B27] shrink-0" />
           </button>
         </div>
       </div>
@@ -327,7 +327,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onOpenAuth }) => {
                 onClick={() => setEditModalOpen(false)}
                 className="p-1.5 rounded-full hover:bg-white/10 cursor-pointer"
               >
-                <X className="w-5 h-5" />
+                <IgCloseIcon className="w-5 h-5" />
               </button>
             </div>
             <form onSubmit={handleSaveProfile} className="p-5 space-y-3.5">
@@ -411,7 +411,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onOpenAuth }) => {
                 onClick={() => setSettingsOpen(false)}
                 className="p-1.5 rounded-full hover:bg-white/10 cursor-pointer"
               >
-                <X className="w-5 h-5" />
+                <IgCloseIcon className="w-5 h-5" />
               </button>
             </div>
             <div className="p-5 space-y-3">
@@ -430,10 +430,10 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onOpenAuth }) => {
                 className="w-full py-3 px-4 rounded-2xl bg-white border border-[#EADBC2] text-sm font-semibold text-[#061B46] flex items-center justify-between hover:border-[#D99B27] cursor-pointer"
               >
                 <span className="flex items-center gap-2.5">
-                  <Sparkles className="w-4 h-4 text-[#D99B27]" />
+                  <IgSparklesIcon className="w-4 h-4 text-[#D99B27]" />
                   <span>Replay Welcome Splash Screen</span>
                 </span>
-                <ChevronRight className="w-4 h-4 text-[#667085]" />
+                <IgChevronRightIcon className="w-4 h-4 text-[#667085]" />
               </button>
 
               <button
@@ -445,7 +445,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onOpenAuth }) => {
                 }}
                 className="w-full py-3 px-4 rounded-2xl bg-red-50 border border-red-200 text-sm font-semibold text-red-700 flex items-center justify-center gap-2 hover:bg-red-100 cursor-pointer"
               >
-                <LogOut className="w-4 h-4" />
+                <IgLogoutIcon className="w-4 h-4" />
                 <span>Sign Out / Switch Account</span>
               </button>
             </div>
@@ -477,7 +477,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onOpenAuth }) => {
                 onClick={() => setActiveSheet(null)}
                 className="p-1.5 rounded-full hover:bg-white/10 cursor-pointer"
               >
-                <X className="w-5 h-5" />
+                <IgCloseIcon className="w-5 h-5" />
               </button>
             </div>
 
@@ -610,7 +610,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onOpenAuth }) => {
                           <p className="text-sm font-bold text-[#061B46]">{grp.name}</p>
                           <p className="text-xs text-[#667085] mt-0.5">{grp.description}</p>
                         </div>
-                        <ChevronRight className="w-4 h-4 text-[#D99B27] shrink-0" />
+                        <IgChevronRightIcon className="w-4 h-4 text-[#D99B27] shrink-0" />
                       </button>
                     ))
                   )}

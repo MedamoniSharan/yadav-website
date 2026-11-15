@@ -1,7 +1,7 @@
 import React from 'react';
-import { Check, Heart, Plus, Star } from 'lucide-react';
 import { Business } from '../../models/types';
 import { SafeImage, VerifiedBadge } from '../common/KrishnaDecorations';
+import { IgCheckIcon, IgHeartIcon, IgPlusIcon, IgStarIcon } from '../icons/AppIcons';
 
 interface BusinessCardProps {
   business: Business;
@@ -38,7 +38,7 @@ export const BusinessCard: React.FC<BusinessCardProps> = ({
 
         {/* Rating Badge Bottom-Left */}
         <div className="absolute bottom-2 left-2 px-2 py-0.5 rounded-full bg-white/95 shadow-sm flex items-center gap-1 text-[11px] font-bold text-[#061B46] tabular-nums pointer-events-none">
-          <Star className="w-3 h-3 fill-[#E9A526] text-[#E9A526]" />
+          <IgStarIcon className="w-3 h-3 text-[#E9A526]" />
           <span>{business.rating.toFixed(1)}</span>
           <span className="font-normal text-[#667085]">({business.reviewCount})</span>
         </div>
@@ -53,9 +53,10 @@ export const BusinessCard: React.FC<BusinessCardProps> = ({
           aria-label={business.isFavorite ? `Remove ${business.name} from favorites` : `Favorite ${business.name}`}
           className="absolute bottom-2 right-2 w-8 h-8 rounded-full bg-black/45 border border-white/75 backdrop-blur-xs flex items-center justify-center text-white hover:bg-black/65 transition-transform active:scale-90 cursor-pointer"
         >
-          <Heart
+          <IgHeartIcon
+            filled={business.isFavorite}
             className={`w-4 h-4 ${
-              business.isFavorite ? 'fill-[#E11D48] text-[#E11D48]' : 'text-white'
+              business.isFavorite ? 'text-[#ED4956]' : 'text-white'
             }`}
           />
         </button>
@@ -90,12 +91,12 @@ export const BusinessCard: React.FC<BusinessCardProps> = ({
           >
             {business.isFollowed ? (
               <>
-                <Check className="w-3 h-3" />
+                <IgCheckIcon className="w-3 h-3" />
                 <span>Following</span>
               </>
             ) : (
               <>
-                <Plus className="w-3 h-3" />
+                <IgPlusIcon className="w-3 h-3" strokeWidth={2.4} />
                 <span>Follow</span>
               </>
             )}

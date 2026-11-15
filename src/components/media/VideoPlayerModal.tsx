@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { ExternalLink, Pause, Play, Volume2, VolumeX, X } from 'lucide-react';
 import { SafeImage, VerifiedBadge } from '../common/KrishnaDecorations';
+import {
+  IgCloseIcon,
+  IgExternalLinkIcon,
+  IgPauseIcon,
+  IgPlayIcon,
+  IgVolumeOffIcon,
+  IgVolumeOnIcon,
+} from '../icons/AppIcons';
 
 interface VideoPlayerModalProps {
   isOpen: boolean;
@@ -88,7 +95,7 @@ export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({
             aria-label="Close video"
             className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full text-white/80 hover:text-white hover:bg-white/10 cursor-pointer"
           >
-            <X className="w-5 h-5" />
+            <IgCloseIcon className="w-5 h-5" />
           </button>
         </div>
 
@@ -122,9 +129,9 @@ export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({
               >
                 <span className="w-16 h-16 rounded-full bg-black/55 border-2 border-white/90 text-white flex items-center justify-center backdrop-blur-sm transition-transform group-hover:scale-105">
                   {isPlaying ? (
-                    <Pause className="w-7 h-7 fill-white" />
+                    <IgPauseIcon className="w-7 h-7" />
                   ) : (
-                    <Play className="w-7 h-7 fill-white ml-1" />
+                    <IgPlayIcon className="w-7 h-7 ml-1" />
                   )}
                 </span>
               </button>
@@ -163,7 +170,7 @@ export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({
                     aria-label={isMuted ? 'Unmute' : 'Mute'}
                     className="p-1 hover:text-[#F5D58B] cursor-pointer"
                   >
-                    {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+                    {isMuted ? <IgVolumeOffIcon className="w-4 h-4" /> : <IgVolumeOnIcon className="w-4 h-4" />}
                   </button>
                 </div>
               </div>
@@ -186,7 +193,7 @@ export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-royal-pill text-white text-xs font-semibold shrink-0 cursor-pointer hover:brightness-110"
             >
               <span>Visit Business</span>
-              <ExternalLink className="w-3.5 h-3.5" />
+              <IgExternalLinkIcon className="w-3.5 h-3.5" />
             </button>
           </div>
         )}

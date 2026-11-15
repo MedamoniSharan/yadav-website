@@ -1,18 +1,4 @@
 import React, { useMemo, useState } from 'react';
-import {
-  Bell,
-  Calendar,
-  ChevronRight,
-  Image as ImageIcon,
-  Menu,
-  PlayCircle,
-  Search,
-  Sparkles,
-  Store,
-  Users,
-  Video,
-  X,
-} from 'lucide-react';
 import { PostCard } from '../../components/cards/PostCard';
 import {
   GoldenCowEmblem,
@@ -20,6 +6,19 @@ import {
   SafeImage,
   VerifiedBadge,
 } from '../../components/common/KrishnaDecorations';
+import {
+  IgBellIcon,
+  IgCalendarIcon,
+  IgChevronRightIcon,
+  IgCloseIcon,
+  IgCommunityIcon,
+  IgMenuIcon,
+  IgPhotoIcon,
+  IgReelsIcon,
+  IgSearchIcon,
+  IgShopIcon,
+  IgSparklesIcon,
+} from '../../components/icons/AppIcons';
 import { useApp } from '../../context/AppContext';
 import { FeedTab } from '../../models/types';
 import { ASSETS } from '../../theme/tokens';
@@ -99,7 +98,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                 aria-label="Open menu"
                 className="min-w-[40px] min-h-[40px] -ml-1.5 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors cursor-pointer md:hidden"
               >
-                <Menu className="w-6 h-6 text-white" />
+                <IgMenuIcon className="w-6 h-6 text-white" />
               </button>
 
               <div className="flex items-center gap-2 min-w-0">
@@ -117,9 +116,9 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                 aria-label="Notifications"
                 className="relative min-w-[40px] min-h-[40px] flex items-center justify-center rounded-full hover:bg-white/10 transition-colors cursor-pointer"
               >
-                <Bell className="w-[22px] h-[22px] text-white" />
+                <IgBellIcon className="w-[22px] h-[22px] text-white" filled={unreadNotificationsCount > 0} />
                 {unreadNotificationsCount > 0 && (
-                  <span className="absolute top-1 right-1 min-w-[17px] h-[17px] px-1 rounded-full bg-[#E11D48] text-white text-[10px] font-bold flex items-center justify-center tabular-nums ring-2 ring-[#061B46]">
+                  <span className="absolute top-1 right-1 min-w-[17px] h-[17px] px-1 rounded-full bg-[#ED4956] text-white text-[10px] font-bold flex items-center justify-center tabular-nums ring-2 ring-[#061B46]">
                     {unreadNotificationsCount}
                   </span>
                 )}
@@ -142,7 +141,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
 
           {/* Search Bar */}
           <div className="mt-3 relative">
-            <Search className="w-4 h-4 text-[#F5D58B]/80 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <IgSearchIcon className="w-4 h-4 text-[#F5D58B]/80 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
               type="search"
               value={searchQuery}
@@ -157,7 +156,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                 aria-label="Clear search"
                 className="absolute right-2.5 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-1 cursor-pointer"
               >
-                <X className="w-4 h-4" />
+                <IgCloseIcon className="w-4 h-4" />
               </button>
             )}
           </div>
@@ -169,7 +168,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
               onClick={() => setActiveTab('businesses')}
               className="flex flex-col items-center justify-center py-2.5 px-1 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/15 transition-all active:scale-95 cursor-pointer"
             >
-              <Store className="w-6 h-6 text-[#F5D58B]" strokeWidth={1.9} />
+              <IgShopIcon className="w-6 h-6 text-[#F5D58B]" />
               <span className="mt-1.5 text-[11.5px] font-medium text-white whitespace-nowrap">
                 Businesses
               </span>
@@ -186,7 +185,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                   : 'bg-white/10 hover:bg-white/15 border-white/15'
               }`}
             >
-              <PlayCircle className="w-6 h-6 text-[#F5D58B]" strokeWidth={1.9} />
+              <IgReelsIcon className="w-6 h-6 text-[#F5D58B]" filled={homeQuickFilter === 'videos'} />
               <span className="mt-1.5 text-[11.5px] font-medium text-white whitespace-nowrap">
                 Videos
               </span>
@@ -203,7 +202,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                   : 'bg-white/10 hover:bg-white/15 border-white/15'
               }`}
             >
-              <Calendar className="w-6 h-6 text-[#F5D58B]" strokeWidth={1.9} />
+              <IgCalendarIcon className="w-6 h-6 text-[#F5D58B]" />
               <span className="mt-1.5 text-[11.5px] font-medium text-white whitespace-nowrap">
                 Events
               </span>
@@ -214,7 +213,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
               onClick={() => setActiveTab('community')}
               className="flex flex-col items-center justify-center py-2.5 px-1 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/15 transition-all active:scale-95 cursor-pointer"
             >
-              <Users className="w-6 h-6 text-[#F5D58B]" strokeWidth={1.9} />
+              <IgCommunityIcon className="w-6 h-6 text-[#F5D58B]" />
               <span className="mt-1.5 text-[11.5px] font-medium text-white whitespace-nowrap">
                 Groups
               </span>
@@ -298,7 +297,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                 aria-label="Upload image post"
                 className="min-w-[38px] min-h-[38px] rounded-xl flex items-center justify-center text-[#0B347A] hover:bg-[#FFF8ED] transition-colors cursor-pointer shrink-0"
               >
-                <ImageIcon className="w-5 h-5" />
+                <IgPhotoIcon className="w-5 h-5" />
               </button>
 
               <button
@@ -310,7 +309,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                 aria-label="Upload video post"
                 className="min-w-[38px] min-h-[38px] rounded-xl flex items-center justify-center text-[#0B347A] hover:bg-[#FFF8ED] transition-colors cursor-pointer shrink-0"
               >
-                <Video className="w-5 h-5" />
+                <IgReelsIcon className="w-5 h-5" />
               </button>
             </div>
 
@@ -409,7 +408,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                   className="text-xs font-semibold text-[#0B347A] hover:underline flex items-center gap-0.5 cursor-pointer"
                 >
                   <span>View All</span>
-                  <ChevronRight className="w-3.5 h-3.5" />
+                  <IgChevronRightIcon className="w-3.5 h-3.5" />
                 </button>
               </div>
 
@@ -543,7 +542,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                   aria-label="Close menu"
                   className="p-1.5 rounded-full hover:bg-white/10 cursor-pointer"
                 >
-                  <X className="w-5 h-5" />
+                  <IgCloseIcon className="w-5 h-5" />
                 </button>
               </div>
               <div className="flex items-center gap-3">
@@ -571,7 +570,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                 }}
                 className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white cursor-pointer"
               >
-                <Store className="w-4 h-4 text-[#D99B27]" />
+                <IgShopIcon className="w-4 h-4 text-[#D99B27]" />
                 <span>Business Directory</span>
               </button>
               <button
@@ -582,7 +581,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                 }}
                 className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white cursor-pointer"
               >
-                <Users className="w-4 h-4 text-[#D99B27]" />
+                <IgCommunityIcon className="w-4 h-4 text-[#D99B27]" />
                 <span>Community Groups</span>
               </button>
               <button
@@ -593,7 +592,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                 }}
                 className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white cursor-pointer"
               >
-                <ImageIcon className="w-4 h-4 text-[#D99B27]" />
+                <IgPhotoIcon className="w-4 h-4 text-[#D99B27]" />
                 <span>Publish Advertisement</span>
               </button>
               <button
@@ -604,7 +603,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                 }}
                 className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white cursor-pointer"
               >
-                <Sparkles className="w-4 h-4 text-[#D99B27]" />
+                <IgSparklesIcon className="w-4 h-4 text-[#D99B27]" />
                 <span>View Welcome Splash</span>
               </button>
             </div>

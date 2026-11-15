@@ -1,5 +1,4 @@
 import React from 'react';
-import { Bell, Home, PlusCircle, Sparkles, Store, User, Users } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { MainTabId } from '../../models/types';
 import {
@@ -8,6 +7,15 @@ import {
   SafeImage,
   VerifiedBadge,
 } from '../common/KrishnaDecorations';
+import {
+  IgBellIcon,
+  IgCommunityIcon,
+  IgCreateSquareIcon,
+  IgHomeIcon,
+  IgProfileIcon,
+  IgShopIcon,
+  IgSparklesIcon,
+} from '../icons/AppIcons';
 
 interface DesktopSidebarProps {
   onOpenNotifications: () => void;
@@ -17,10 +25,10 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ onOpenNotificati
   const { activeTab, setActiveTab, user, unreadNotificationsCount, replaySplash } = useApp();
 
   const navItems: { id: MainTabId; label: string; icon: React.ReactNode }[] = [
-    { id: 'home', label: 'Home Feed', icon: <Home className="w-5 h-5" /> },
-    { id: 'businesses', label: 'Businesses', icon: <Store className="w-5 h-5" /> },
-    { id: 'community', label: 'Community', icon: <Users className="w-5 h-5" /> },
-    { id: 'profile', label: 'My Profile', icon: <User className="w-5 h-5" /> },
+    { id: 'home', label: 'Home Feed', icon: <IgHomeIcon className="w-5 h-5" filled={activeTab === 'home'} /> },
+    { id: 'businesses', label: 'Businesses', icon: <IgShopIcon className="w-5 h-5" filled={activeTab === 'businesses'} /> },
+    { id: 'community', label: 'Community', icon: <IgCommunityIcon className="w-5 h-5" filled={activeTab === 'community'} /> },
+    { id: 'profile', label: 'My Profile', icon: <IgProfileIcon className="w-5 h-5" filled={activeTab === 'profile'} /> },
   ];
 
   return (
@@ -72,7 +80,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ onOpenNotificati
             onClick={() => setActiveTab('create')}
             className="w-full flex items-center justify-center gap-2.5 px-4 py-3 rounded-full bg-gold-orb text-[#061B46] font-semibold text-sm shadow-lg hover:brightness-105 active:scale-[0.98] transition-all cursor-pointer whitespace-nowrap"
           >
-            <PlusCircle className="w-5 h-5" />
+            <IgCreateSquareIcon className="w-5 h-5" filled={activeTab === 'create'} />
             <span>Create Post / Ad</span>
           </button>
         </div>
@@ -84,7 +92,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ onOpenNotificati
             className="w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium text-white/85 hover:bg-white/10 hover:text-white transition-colors cursor-pointer"
           >
             <span className="flex items-center gap-3.5">
-              <Bell className="w-5 h-5" />
+              <IgBellIcon className="w-5 h-5" filled={unreadNotificationsCount > 0} />
               <span>Notifications</span>
             </span>
             {unreadNotificationsCount > 0 && (
@@ -103,7 +111,7 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ onOpenNotificati
           onClick={replaySplash}
           className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-xs text-[#F5D58B]/85 hover:text-[#F5D58B] hover:bg-white/5 transition-colors cursor-pointer"
         >
-          <Sparkles className="w-3.5 h-3.5" />
+          <IgSparklesIcon className="w-3.5 h-3.5" />
           <span>View Welcome Screen</span>
         </button>
 

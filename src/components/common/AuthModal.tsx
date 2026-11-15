@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
-import { Lock, Mail, MapPin, User, X } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
+import {
+  IgCloseIcon,
+  IgLockIcon,
+  IgMailIcon,
+  IgMapPinIcon,
+  IgProfileIcon,
+} from '../icons/AppIcons';
 import { GoldenCowEmblem, OrnamentalLotusDivider } from './KrishnaDecorations';
 
 interface AuthModalProps {
@@ -66,7 +72,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               aria-label="Close authentication dialog"
               className="absolute top-3 right-3 z-20 min-w-[40px] min-h-[40px] flex items-center justify-center rounded-full text-white/80 hover:bg-white/10 cursor-pointer"
             >
-              <X className="w-5 h-5" />
+              <IgCloseIcon className="w-5 h-5" />
             </button>
           )}
           <div className="relative z-10 flex flex-col items-center text-center">
@@ -102,7 +108,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                   Full Name *
                 </label>
                 <div className="relative">
-                  <User className="w-4 h-4 text-[#667085] absolute left-3.5 top-3" />
+                  <IgProfileIcon className="w-4 h-4 text-[#667085] absolute left-3.5 top-3" />
                   <input
                     type="text"
                     required
@@ -118,7 +124,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                   City / Location
                 </label>
                 <div className="relative">
-                  <MapPin className="w-4 h-4 text-[#667085] absolute left-3.5 top-3" />
+                  <IgMapPinIcon className="w-4 h-4 text-[#667085] absolute left-3.5 top-3" />
                   <input
                     type="text"
                     value={location}
@@ -136,7 +142,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               Email Address *
             </label>
             <div className="relative">
-              <Mail className="w-4 h-4 text-[#667085] absolute left-3.5 top-3" />
+              <IgMailIcon className="w-4 h-4 text-[#667085] absolute left-3.5 top-3" />
               <input
                 type="email"
                 required
@@ -154,7 +160,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 Password *
               </label>
               <div className="relative">
-                <Lock className="w-4 h-4 text-[#667085] absolute left-3.5 top-3" />
+                <IgLockIcon className="w-4 h-4 text-[#667085] absolute left-3.5 top-3" />
                 <input
                   type="password"
                   required

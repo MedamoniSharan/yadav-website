@@ -1,6 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Maximize2, Pause, Play, Volume2, VolumeX } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
+import {
+  IgExpandIcon,
+  IgPauseIcon,
+  IgPlayIcon,
+  IgVolumeOffIcon,
+  IgVolumeOnIcon,
+} from '../icons/AppIcons';
 
 interface AutoPlayVideoProps {
   src: string;
@@ -145,9 +151,9 @@ export const AutoPlayVideo: React.FC<AutoPlayVideoProps> = ({
         >
           <span className="w-12 h-12 rounded-full bg-black/55 border-2 border-white/90 text-white flex items-center justify-center backdrop-blur-xs shadow-lg transition-transform">
             {flashIcon === 'pause' || !isPlaying ? (
-              <Play className="w-5 h-5 fill-white ml-0.5" />
+              <IgPlayIcon className="w-5 h-5 ml-0.5" />
             ) : (
-              <Pause className="w-5 h-5 fill-white" />
+              <IgPauseIcon className="w-5 h-5" />
             )}
           </span>
         </button>
@@ -164,7 +170,7 @@ export const AutoPlayVideo: React.FC<AutoPlayVideoProps> = ({
           aria-label="Open full video player"
           className="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-black/50 hover:bg-black/75 text-white flex items-center justify-center backdrop-blur-xs opacity-90 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity cursor-pointer"
         >
-          <Maximize2 className="w-3.5 h-3.5" />
+          <IgExpandIcon className="w-3.5 h-3.5" />
         </button>
       )}
 
@@ -183,7 +189,7 @@ export const AutoPlayVideo: React.FC<AutoPlayVideoProps> = ({
         aria-label={isFeedMuted ? 'Unmute video' : 'Mute video'}
         className="absolute bottom-2.5 right-2.5 w-8 h-8 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center backdrop-blur-xs border border-white/20 transition-transform active:scale-90 cursor-pointer"
       >
-        {isFeedMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+        {isFeedMuted ? <IgVolumeOffIcon className="w-4 h-4" /> : <IgVolumeOnIcon className="w-4 h-4" />}
       </button>
 
       {/* Bottom Progress Bar */}
