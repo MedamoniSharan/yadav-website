@@ -33,6 +33,7 @@ export const CommunityScreen: React.FC = () => {
     toggleLikeGroupDiscussion,
     addGroupDiscussionComment,
     navigateBack,
+    openShareSheet,
     showToast,
   } = useApp();
 
@@ -389,7 +390,14 @@ export const CommunityScreen: React.FC = () => {
 
                       <button
                         type="button"
-                        onClick={() => showToast('Discussion link shared!')}
+                        onClick={() =>
+                          openShareSheet({
+                            title: `${disc.authorName} · ${activeGroup.name}`,
+                            subtitle: 'Yadav Community Discussion',
+                            text: disc.content,
+                            image: disc.authorAvatar,
+                          })
+                        }
                         className="inline-flex items-center gap-1.5 hover:text-[#0B347A] cursor-pointer"
                       >
                         <IgSharePlaneIcon className="w-4 h-4" />

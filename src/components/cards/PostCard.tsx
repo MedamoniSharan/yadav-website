@@ -22,7 +22,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
   const {
     toggleLikePost,
     toggleSavePost,
-    sharePost,
+    openShareSheet,
     addPostComment,
     setSelectedBusinessId,
     setActiveTab,
@@ -262,7 +262,15 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
 
           <button
             type="button"
-            onClick={() => sharePost(post.id)}
+            onClick={() =>
+              openShareSheet({
+                postId: post.id,
+                title: post.authorName,
+                subtitle: `${post.category} · ${post.location}`,
+                text: post.description,
+                image: post.authorAvatar,
+              })
+            }
             className="inline-flex items-center gap-1.5 min-h-[36px] text-xs font-semibold text-[#262626] hover:text-[#0B347A] transition-colors cursor-pointer"
             aria-label="Share post"
           >

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { AuthModal } from '../components/common/AuthModal';
 import { NotificationDrawer } from '../components/common/NotificationDrawer';
+import { ShareSheetModal } from '../components/common/ShareSheetModal';
 import { BottomNav } from '../components/navigation/BottomNav';
 import { DesktopSidebar } from '../components/navigation/DesktopSidebar';
 import { useApp } from '../context/AppContext';
@@ -20,6 +21,10 @@ export const AppRouter: React.FC = () => {
     isAuthenticated,
     unreadNotificationsCount,
     playNotificationSound,
+    shareTarget,
+    closeShareSheet,
+    recordPostShare,
+    showToast,
   } = useApp();
   const [notifOpen, setNotifOpen] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
@@ -70,6 +75,16 @@ export const AppRouter: React.FC = () => {
 
       {/* Notification Drawer */}
       <NotificationDrawer isOpen={notifOpen} onClose={() => setNotifOpen(false)} />
+
+      {/* Share Sheet Modal (WhatsApp, Instagram, Messages, etc.) */}
+      <ShareSheetModal
+        payload={shareTarget}
+        onClose={closeShareSheet}
+        onCompleteShare={(channelLabel, postId, customToast) => {
+          if (postId) recordPostShare(postId);
+          showToast(customToast || `Shared via ${channelLabel}!`);
+        }}
+      />
 
       {/* Auth Modal (when signed out or triggered via menu) */}
       <AuthModal

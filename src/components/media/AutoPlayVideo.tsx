@@ -184,6 +184,15 @@ export const AutoPlayVideo: React.FC<AutoPlayVideoProps> = ({
         type="button"
         onClick={(e) => {
           e.stopPropagation();
+          const video = videoRef.current;
+          const nextMuted = !isFeedMuted;
+          if (video) {
+            video.muted = nextMuted;
+            if (!nextMuted) {
+              video.volume = 1;
+              video.play().catch(() => {});
+            }
+          }
           toggleFeedMute();
         }}
         aria-label={isFeedMuted ? 'Unmute video' : 'Mute video'}

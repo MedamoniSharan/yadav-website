@@ -22,6 +22,7 @@ import {
   setNotificationSoundEnabled,
   unlockNotificationAudio,
 } from '../services/notificationSound';
+import { SharePayload } from '../components/common/ShareSheetModal';
 
 interface ToastMessage {
   id: string;
@@ -57,6 +58,10 @@ interface AppContextValue {
   toggleLikePost: (postId: string) => void;
   toggleSavePost: (postId: string) => void;
   sharePost: (postId: string) => void;
+  recordPostShare: (postId: string) => void;
+  shareTarget: SharePayload | null;
+  openShareSheet: (payload: SharePayload) => void;
+  closeShareSheet: () => void;
   addPostComment: (postId: string, text: string) => Promise<void>;
   createNewPost: (
     post: Omit<
@@ -104,6 +109,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     isNotificationSoundEnabled(),
   );
   const [toast, setToast] = useState<ToastMessage | null>(null);
+  const [shareTarget, setShareTarget] = useState<SharePayload | null>(null);
+
+  const openShareSheet = useCallback((payload: SharePayload) => {
+    setShareTarget(payload);
+  }, []);
+
+  const closeShareSheet = useCallback(() => {
+    setShareTarget(null);
+  }, []);
 
   const toggleFeedMute = useCallback(() => {
     setIsFeedMuted((prev) => !prev);
@@ -163,11 +177,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const handleFirstGesture = () => {
       unlockNotificationAudio();
     };
-    window.addEventListener('pointerdown', handleFirstGesture, { passive: true });
-    window.addEventListener('keydown', handleFirstGesture, { passive: true });
+    window.addEventListener('touchstart', handleFirstGesture, { passive: true, capture: true });
+    window.addEventListener('pointerdown', handleFirstGesture, { passive: true, capture: true });
+    window.addEventListener('click', handleFirstGesture, { passive: true, capture: true });
+    window.addEventListener('keydown', handleFirstGesture, { passive: true, capture: true });
     return () => {
-      window.removeEventListener('pointerdown', handleFirstGesture);
-      window.removeEventListener('keydown', handleFirstGesture);
+      window.removeEventListener('touchstart', handleFirstGesture, { capture: true });
+      window.removeEventListener('pointerdown', handleFirstGesture, { capture: true });
+      window.removeEventListener('click', handleFirstGesture, { capture: true });
+      window.removeEventListener('keydown', handleFirstGesture, { capture: true });
     };
   }, []);
 
@@ -253,19 +271,23 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     [showToast],
   );
 
+  const recordPostShare = useCallback((postId: string) => {
+    setPosts((prev) =>
+      prev.map((post) =>
+        post.id === postId ? { ...post, sharesCount: post.sharesCount + 1 } : post,
+      ),
+    );
+  }, []);
+
   const sharePost = useCallback(
     (postId: string) => {
-      setPosts((prev) =>
-        prev.map((post) =>
-          post.id === postId ? { ...post, sharesCount: post.sharesCount + 1 } : post,
-        ),
-      );
+      recordPostShare(postId);
       if (navigator.clipboard && window.location) {
         navigator.clipboard.writeText(window.location.href).catch(() => {});
       }
       showToast('Post link copied & shared with community!');
     },
-    [showToast],
+    [recordPostShare, showToast],
   );
 
   const addPostComment = useCallback(
@@ -559,6 +581,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         toggleLikePost,
         toggleSavePost,
         sharePost,
+        recordPostShare,
+        shareTarget,
+        openShareSheet,
+        closeShareSheet,
         addPostComment,
         createNewPost,
         toggleFollowBusiness,
