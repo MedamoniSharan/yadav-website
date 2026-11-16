@@ -87,13 +87,13 @@ export const CommunityScreen: React.FC = () => {
       {/* Vrindavan Krishna & Cow Hero Banner */}
       <section
         aria-label="Our Community Stronger Together"
-        className="relative overflow-hidden bg-gradient-to-r from-[#0B347A] via-[#1C4B8C] to-[#E69A4C] h-44 sm:h-52"
+        className="relative overflow-hidden bg-[#0B347A] h-44 sm:h-52"
       >
         <img
           src={ASSETS.vrindavanSunset}
           alt=""
           aria-hidden="true"
-          className="absolute inset-0 w-full h-full object-cover object-center opacity-95"
+          className="absolute inset-0 w-full h-full object-cover object-bottom scale-[1.14] origin-bottom"
         />
         <img
           src={ASSETS.krishnaCowSprite}

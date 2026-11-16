@@ -2,45 +2,29 @@ import React, { useMemo, useState } from 'react';
 import { BusinessCard } from '../../components/cards/BusinessCard';
 import { PostCard } from '../../components/cards/PostCard';
 import {
+  BusinessCategoryCircles,
+  BusinessHeroCarousel,
+} from '../../components/common/BusinessSpotlightCarousel';
+import {
   SafeImage,
   VerifiedBadge,
   VrindavanSilhouetteFooter,
 } from '../../components/common/KrishnaDecorations';
 import {
-  IgAutoIcon,
   IgBackIcon,
   IgCheckIcon,
   IgChevronRightIcon,
   IgCloseIcon,
   IgExternalLinkIcon,
-  IgFashionIcon,
-  IgFitnessIcon,
-  IgFoodIcon,
-  IgHealthIcon,
   IgHeartIcon,
   IgMapPinIcon,
-  IgMoreGridIcon,
   IgPhoneIcon,
   IgPlusIcon,
-  IgRealEstateIcon,
   IgSearchIcon,
-  IgTechIcon,
 } from '../../components/icons/AppIcons';
-import { BUSINESS_CATEGORIES } from '../../constants/mockData';
 import { useApp } from '../../context/AppContext';
 import { Business, BusinessCategory } from '../../models/types';
 import { ASSETS } from '../../theme/tokens';
-
-const CATEGORY_ICONS: Record<BusinessCategory, React.ReactNode> = {
-  Food: <IgFoodIcon className="w-6 h-6" />,
-  Fitness: <IgFitnessIcon className="w-6 h-6" />,
-  Fashion: <IgFashionIcon className="w-6 h-6" />,
-  'IT Services': <IgTechIcon className="w-6 h-6" />,
-  'Real Estate': <IgRealEstateIcon className="w-6 h-6" />,
-  Automotive: <IgAutoIcon className="w-6 h-6" />,
-  Healthcare: <IgHealthIcon className="w-6 h-6" />,
-  More: <IgMoreGridIcon className="w-6 h-6" />,
-};
 
 export const BusinessesScreen: React.FC = () => {
   const {
@@ -48,6 +32,7 @@ export const BusinessesScreen: React.FC = () => {
     posts,
     selectedBusinessId,
     setSelectedBusinessId,
+    setActiveTab,
     toggleFollowBusiness,
     toggleFavoriteBusiness,
     navigateBack,
@@ -89,14 +74,14 @@ export const BusinessesScreen: React.FC = () => {
   }, [posts, selectedBusiness]);
 
   return (
-    <div className="min-h-screen bg-[#FFF8ED] pb-24 md:pb-2 flex flex-col">
+    <div className="min-h-screen bg-[#FFF8ED] pb-24 md:pb-2 flex flex-col overflow-x-clip">
       {/* Krishna Navy Header matching Screen 3 */}
-      <header className="relative bg-krishna-header text-white px-4 pt-3.5 pb-5 rounded-b-[24px] shadow-[0_6px_20px_rgba(6,27,70,0.2)] overflow-hidden">
+      <header className="relative z-20 bg-krishna-header text-white px-4 pt-3.5 pb-6 rounded-b-[24px] shadow-[0_6px_20px_rgba(6,27,70,0.2)] overflow-visible">
         <img
           src={ASSETS.peacockFeatherTransparent}
           alt=""
           aria-hidden="true"
-          className="pointer-events-none select-none absolute -top-1 right-1 w-24 h-16 object-contain opacity-95"
+          className="pointer-events-none select-none absolute -bottom-9 sm:-bottom-10 right-0 sm:right-4 w-24 h-20 sm:w-28 sm:h-24 object-contain rotate-[14deg] drop-shadow-[0_6px_14px_rgba(6,27,70,0.35)] z-20"
         />
 
         <div className="max-w-5xl mx-auto relative z-10">
@@ -142,34 +127,20 @@ export const BusinessesScreen: React.FC = () => {
       </header>
 
       {/* Main Content */}
-      <div className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 pt-5 space-y-6">
-        {/* 8 Business Categories Grid */}
-        <section aria-label="Business Categories">
-          <div className="grid grid-cols-4 sm:grid-cols-8 gap-2.5 sm:gap-3">
-            {BUSINESS_CATEGORIES.map((cat) => {
-              const isSelected = activeCategory === cat.id;
-              return (
-                <button
-                  key={cat.id}
-                  type="button"
-                  onClick={() =>
-                    setActiveCategory(isSelected ? null : cat.id)
-                  }
-                  className={`flex flex-col items-center justify-center py-3 px-1.5 rounded-2xl bg-white transition-all cursor-pointer active:scale-95 ${
-                    isSelected
-                      ? 'border-2 border-[#E9A526] shadow-[0_4px_14px_rgba(233,165,38,0.22)]'
-                      : 'border border-[#EADBC2]/80 shadow-[0_2px_8px_rgba(6,27,70,0.04)] hover:border-[#D99B27]'
-                  }`}
-                >
-                  <span className="text-[#D99B27]">{CATEGORY_ICONS[cat.id]}</span>
-                  <span className="mt-1.5 text-[11px] font-semibold text-[#061B46] text-center leading-tight whitespace-nowrap">
-                    {cat.label}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </section>
+      <div className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 pt-7 space-y-6">
+        <BusinessHeroCarousel
+          onListNow={() => setActiveTab('create')}
+          onNavigateCommunity={() => setActiveTab('community')}
+          onNavigateBusinesses={() => {
+            setActiveCategory(null);
+            setShowAllBusinesses(true);
+          }}
+        />
+
+        <BusinessCategoryCircles
+          activeCategory={activeCategory}
+          onSelectCategory={(cat) => setActiveCategory(activeCategory === cat ? null : cat)}
+        />
 
         {/* Featured Businesses Section */}
         <section aria-label="Featured Businesses" className="space-y-3.5">

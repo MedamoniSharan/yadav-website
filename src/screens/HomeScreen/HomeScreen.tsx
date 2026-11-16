@@ -1,6 +1,11 @@
 import React, { useMemo, useState } from 'react';
 import { PostCard } from '../../components/cards/PostCard';
 import {
+  BusinessCategoryCircles,
+  BusinessHeroCarousel,
+  CommunityPillarsShowcase,
+} from '../../components/common/BusinessSpotlightCarousel';
+import {
   GoldenCowEmblem,
   OrnamentalLotusDivider,
   SafeImage,
@@ -8,19 +13,16 @@ import {
 } from '../../components/common/KrishnaDecorations';
 import {
   IgBellIcon,
-  IgCalendarIcon,
   IgChevronRightIcon,
   IgCloseIcon,
   IgCommunityIcon,
   IgMenuIcon,
   IgPhotoIcon,
-  IgReelsIcon,
-  IgSearchIcon,
   IgShopIcon,
   IgSparklesIcon,
 } from '../../components/icons/AppIcons';
 import { useApp } from '../../context/AppContext';
-import { FeedTab } from '../../models/types';
+import { BusinessCategory, FeedTab } from '../../models/types';
 import { ASSETS } from '../../theme/tokens';
 
 interface HomeScreenProps {
@@ -48,11 +50,10 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
   } = useApp();
 
   const [feedTab, setFeedTab] = useState<FeedTab>('For You');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<BusinessCategory | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const filteredPosts = useMemo(() => {
-    const q = searchQuery.trim().toLowerCase();
     return posts.filter((post) => {
       const matchesTab =
         feedTab === 'For You'
@@ -69,23 +70,21 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
             ? post.contentType === 'video' || post.media.some((m) => m.type === 'video')
             : post.contentType === 'event';
 
-      const matchesQuery =
-        !q ||
-        post.authorName.toLowerCase().includes(q) ||
-        post.description.toLowerCase().includes(q) ||
-        post.location.toLowerCase().includes(q) ||
-        post.category.toLowerCase().includes(q);
+      const matchesCategory =
+        !selectedCategory || selectedCategory === 'More'
+          ? true
+          : post.category.toLowerCase() === selectedCategory.toLowerCase();
 
-      return matchesTab && matchesQuick && matchesQuery;
+      return matchesTab && matchesQuick && matchesCategory;
     });
-  }, [posts, feedTab, homeQuickFilter, searchQuery, businesses]);
+  }, [posts, feedTab, homeQuickFilter, selectedCategory, businesses]);
 
   const featuredBusinesses = useMemo(() => businesses.slice(0, 3), [businesses]);
 
   return (
     <div className="min-h-screen bg-[#FFF8ED] pb-24 md:pb-10 overflow-x-clip">
-      {/* Krishna Navy Header matching Screen 2 */}
-      <header className="bg-krishna-header text-white px-3 sm:px-4 pt-3.5 pb-4 rounded-b-[24px] shadow-[0_6px_20px_rgba(6,27,70,0.2)]">
+      {/* Krishna Navy Header */}
+      <header className="bg-krishna-header text-white px-3 sm:px-4 pt-3 pb-3.5 rounded-b-[24px] shadow-[0_6px_20px_rgba(6,27,70,0.2)]">
         <div className="max-w-5xl mx-auto">
           {/* Top App Row */}
           <div className="flex items-center justify-between gap-1.5 sm:gap-2">
@@ -135,87 +134,6 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                 />
               </button>
             </div>
-          </div>
-
-          {/* Search Bar */}
-          <div className="mt-3 relative">
-            <IgSearchIcon className="w-4 h-4 text-[#F5D58B]/80 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-            <input
-              type="search"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search businesses, posts, members..."
-              className="w-full pl-10 pr-9 py-2.5 rounded-xl bg-white/10 border border-white/15 text-sm text-white placeholder-white/65 focus:outline-none focus:border-[#E9A526]/70 focus:bg-white/15 transition-colors"
-            />
-            {searchQuery && (
-              <button
-                type="button"
-                onClick={() => setSearchQuery('')}
-                aria-label="Clear search"
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-1 cursor-pointer"
-              >
-                <IgCloseIcon className="w-4 h-4" />
-              </button>
-            )}
-          </div>
-
-          {/* 4 Quick Navigation Cards */}
-          <div className="mt-3.5 grid grid-cols-4 gap-2.5">
-            <button
-              type="button"
-              onClick={() => setActiveTab('businesses')}
-              className="flex flex-col items-center justify-center py-2.5 px-1 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/15 transition-all active:scale-95 cursor-pointer"
-            >
-              <IgShopIcon className="w-6 h-6 text-[#F5D58B]" />
-              <span className="mt-1.5 text-[11.5px] font-medium text-white whitespace-nowrap">
-                Businesses
-              </span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() =>
-                setHomeQuickFilter(homeQuickFilter === 'videos' ? 'all' : 'videos')
-              }
-              className={`flex flex-col items-center justify-center py-2.5 px-1 rounded-2xl border transition-all active:scale-95 cursor-pointer ${
-                homeQuickFilter === 'videos'
-                  ? 'bg-[#E9A526]/25 border-[#F5D58B] shadow-inner'
-                  : 'bg-white/10 hover:bg-white/15 border-white/15'
-              }`}
-            >
-              <IgReelsIcon className="w-6 h-6 text-[#F5D58B]" filled={homeQuickFilter === 'videos'} />
-              <span className="mt-1.5 text-[11.5px] font-medium text-white whitespace-nowrap">
-                Videos
-              </span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() =>
-                setHomeQuickFilter(homeQuickFilter === 'events' ? 'all' : 'events')
-              }
-              className={`flex flex-col items-center justify-center py-2.5 px-1 rounded-2xl border transition-all active:scale-95 cursor-pointer ${
-                homeQuickFilter === 'events'
-                  ? 'bg-[#E9A526]/25 border-[#F5D58B] shadow-inner'
-                  : 'bg-white/10 hover:bg-white/15 border-white/15'
-              }`}
-            >
-              <IgCalendarIcon className="w-6 h-6 text-[#F5D58B]" />
-              <span className="mt-1.5 text-[11.5px] font-medium text-white whitespace-nowrap">
-                Events
-              </span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setActiveTab('community')}
-              className="flex flex-col items-center justify-center py-2.5 px-1 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/15 transition-all active:scale-95 cursor-pointer"
-            >
-              <IgCommunityIcon className="w-6 h-6 text-[#F5D58B]" />
-              <span className="mt-1.5 text-[11.5px] font-medium text-white whitespace-nowrap">
-                Groups
-              </span>
-            </button>
           </div>
         </div>
       </header>
@@ -267,6 +185,33 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           </div>
         </section>
 
+        {/* Featured Business Spotlight Carousel & Category Circles */}
+        <div className="pt-2 space-y-4">
+          <BusinessHeroCarousel
+            onListNow={() => setActiveTab('create')}
+            onNavigateCommunity={() => setActiveTab('community')}
+            onNavigateBusinesses={() => setActiveTab('businesses')}
+          />
+
+          <BusinessCategoryCircles
+            activeCategory={selectedCategory}
+            onSelectCategory={(cat) => {
+              if (cat === 'More') {
+                setActiveTab('businesses');
+                return;
+              }
+              setSelectedCategory((prev) => (prev === cat ? null : cat));
+            }}
+          />
+
+          <CommunityPillarsShowcase
+            onSelectHeritage={() => setActiveTab('community')}
+            onSelectPromote={() => setActiveTab('create')}
+            onSelectGrow={() => setActiveTab('community')}
+          />
+        </div>
+
+
         {/* Responsive 2-column desktop / 1-column mobile feed layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
           {/* Primary Feed Column */}
@@ -292,18 +237,31 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
               })}
             </div>
 
-            {/* Active Quick Filter Indicator if Videos/Events selected */}
-            {homeQuickFilter !== 'all' && (
-              <div className="flex items-center justify-between px-3.5 py-2 rounded-xl bg-[#061B46]/5 border border-[#061B46]/15 text-xs">
-                <span className="font-semibold text-[#061B46]">
-                  Showing {homeQuickFilter === 'videos' ? 'Community Videos' : 'Community Events'}
+            {/* Active Quick / Category Filter Indicator */}
+            {(homeQuickFilter !== 'all' || selectedCategory !== null) && (
+              <div className="flex items-center justify-between gap-2 px-3.5 py-2 rounded-xl bg-[#061B46]/5 border border-[#061B46]/15 text-xs">
+                <span className="font-semibold text-[#061B46] truncate">
+                  Showing{' '}
+                  {[
+                    homeQuickFilter === 'videos'
+                      ? 'Community Videos'
+                      : homeQuickFilter === 'events'
+                        ? 'Community Events'
+                        : null,
+                    selectedCategory ? `${selectedCategory} Updates` : null,
+                  ]
+                    .filter(Boolean)
+                    .join(' · ')}
                 </span>
                 <button
                   type="button"
-                  onClick={() => setHomeQuickFilter('all')}
-                  className="font-semibold text-[#0B347A] hover:underline cursor-pointer"
+                  onClick={() => {
+                    setHomeQuickFilter('all');
+                    setSelectedCategory(null);
+                  }}
+                  className="font-semibold text-[#0B347A] hover:underline cursor-pointer shrink-0"
                 >
-                  Show All Posts
+                  Show All
                 </button>
               </div>
             )}
@@ -324,17 +282,28 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                 <p className="text-xs text-[#667085]">
                   Try switching feed tabs or publish a new community update!
                 </p>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setSearchQuery('');
-                    setHomeQuickFilter('all');
-                    setFeedTab('For You');
-                  }}
-                  className="px-4 py-2 rounded-full bg-royal-pill text-white text-xs font-semibold cursor-pointer"
-                >
-                  Reset Feed Filters
-                </button>
+                <div className="flex flex-wrap items-center justify-center gap-2">
+                  {selectedCategory && (
+                    <button
+                      type="button"
+                      onClick={() => setActiveTab('businesses')}
+                      className="px-4 py-2 rounded-full border border-[#0B347A] text-[#0B347A] text-xs font-semibold hover:bg-[#FFF8ED] cursor-pointer"
+                    >
+                      Browse {selectedCategory} Businesses
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setHomeQuickFilter('all');
+                      setSelectedCategory(null);
+                      setFeedTab('For You');
+                    }}
+                    className="px-4 py-2 rounded-full bg-royal-pill text-white text-xs font-semibold cursor-pointer"
+                  >
+                    Reset Feed Filters
+                  </button>
+                </div>
               </div>
             ) : (
               <div className="space-y-3.5">
