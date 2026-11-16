@@ -23,7 +23,7 @@ export const ASSETS = {
   krishnaLoading: '/assets/images/krishna-loading.png',
   krishnaFlutePack: '/assets/images/krishna-flute-pack.png',
   krishnaFluteSprite: '/assets/images/krishna-flute-sprite.png',
-  krishnaCowSprite: '/assets/images/krishna-cow-sprite.png',
+  krishnaCowSprite: '/assets/aistudio/image_0ec94fb7.png',
   vrindavanSunset: '/assets/images/vrindavan-sunset-hd.png',
   vrindavanTreeCowSunset: '/assets/images/vrindavan-tree-cow-sunset.png',
   vrindavanNightMoon: '/assets/images/vrindavan-night-moon.png',

@@ -118,17 +118,17 @@ export const CommunityScreen: React.FC = () => {
         <img
           src={ASSETS.krishnaCowSprite}
           alt="Lord Krishna standing with cow in Vrindavan"
-          className="absolute right-2 sm:right-8 bottom-2 h-[88%] w-auto object-contain drop-shadow-[0_4px_12px_rgba(6,27,70,0.4)] z-10"
+          className="pointer-events-none select-none absolute right-1 sm:right-6 bottom-2 sm:bottom-2.5 h-[90%] sm:h-[94%] w-auto object-contain object-right-bottom drop-shadow-[0_4px_12px_rgba(6,27,70,0.45)] z-10"
         />
         <div
-          className="absolute inset-0 pointer-events-none"
+          className="absolute inset-0 pointer-events-none z-[5]"
           style={{
             background:
-              'linear-gradient(90deg, rgba(6,27,70,0.88) 0%, rgba(11,52,122,0.7) 42%, rgba(11,52,122,0.12) 72%, transparent 100%)',
+              'linear-gradient(90deg, rgba(6,27,70,0.88) 0%, rgba(11,52,122,0.68) 40%, rgba(11,52,122,0.10) 68%, transparent 100%)',
           }}
         />
-        <div className="relative z-10 max-w-4xl mx-auto h-full px-5 sm:px-6 flex flex-col justify-center">
-          <h2 className="font-display text-[25px] sm:text-[32px] font-semibold text-white leading-[1.1] drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] max-w-[230px] sm:max-w-sm">
+        <div className="relative z-20 max-w-4xl mx-auto h-full px-5 sm:px-6 flex flex-col justify-center">
+          <h2 className="font-display text-[24px] sm:text-[32px] font-semibold text-white leading-[1.1] drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] max-w-[215px] sm:max-w-sm">
             Our Community
             <span className="block">Stronger Together</span>
           </h2>
