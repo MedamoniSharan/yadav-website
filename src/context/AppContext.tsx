@@ -104,7 +104,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [selectedBusinessId, setSelectedBusinessId] = useState<string | null>(null);
   const [selectedGroupId, setSelectedGroupId] = useState<string | null>(null);
   const [homeQuickFilter, setHomeQuickFilter] = useState<'all' | 'videos' | 'events'>('all');
-  const [isFeedMuted, setIsFeedMuted] = useState(true);
+  const [isFeedMuted, setIsFeedMuted] = useState(false);
   const [notificationSoundEnabled, setSoundEnabledState] = useState<boolean>(() =>
     isNotificationSoundEnabled(),
   );

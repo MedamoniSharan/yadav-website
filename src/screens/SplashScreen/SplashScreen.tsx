@@ -3,37 +3,47 @@ import { motion } from 'motion/react';
 import { useApp } from '../../context/AppContext';
 import { unlockNotificationAudio } from '../../services/notificationSound';
 import { ASSETS } from '../../theme/tokens';
-import { IgVolumeOffIcon } from '../../components/icons/AppIcons';
 
 export const SplashScreen: React.FC = () => {
   const { dismissSplash } = useApp();
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [videoFailed, setVideoFailed] = useState(false);
-  const [autoplayMuted, setAutoplayMuted] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    const tryPlay = async () => {
+    const tryPlayUnmuted = async () => {
       try {
         video.muted = false;
         video.volume = 1;
         await video.play();
-        setAutoplayMuted(false);
       } catch {
-        // Mobile browsers block unmuted autoplay on cold load; fall back to muted autoplay
+        // If browser blocks unmuted autoplay on cold load, play cleanly until unlocked
         try {
           video.muted = true;
           await video.play();
-          setAutoplayMuted(true);
         } catch {
-          // Safety timeout handles dismissal if autoplay is fully restricted
+          // Safety timeout handles dismissal if autoplay is blocked
         }
       }
     };
 
-    tryPlay();
+    tryPlayUnmuted();
+
+    const tryUnmuteOnInteraction = () => {
+      unlockNotificationAudio();
+      if (video.muted) {
+        video.muted = false;
+        video.volume = 1;
+        video.play().catch(() => {});
+      }
+    };
+
+    window.addEventListener('keydown', tryUnmuteOnInteraction, { passive: true, capture: true });
+    return () => {
+      window.removeEventListener('keydown', tryUnmuteOnInteraction, { capture: true });
+    };
   }, []);
 
   // Safety timeout so users are never trapped if playback stalls or errors
@@ -45,20 +55,8 @@ export const SplashScreen: React.FC = () => {
     return () => window.clearTimeout(timer);
   }, [dismissSplash, videoFailed]);
 
-  const handleSplashTap = () => {
+  const handleDismiss = () => {
     unlockNotificationAudio();
-    const video = videoRef.current;
-    if (video && autoplayMuted && video.muted && !videoFailed) {
-      try {
-        video.muted = false;
-        video.volume = 1;
-        video.play().catch(() => {});
-        setAutoplayMuted(false);
-        return;
-      } catch {
-        // Fall through to dismiss if unmute fails
-      }
-    }
     dismissSplash();
   };
 
@@ -66,11 +64,11 @@ export const SplashScreen: React.FC = () => {
     <motion.div
       initial={{ opacity: 1 }}
       exit={{ opacity: 0, transition: { duration: 0.45, ease: 'easeInOut' } }}
-      onClick={handleSplashTap}
+      onClick={handleDismiss}
       role="button"
       tabIndex={0}
       onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') handleSplashTap();
+        if (e.key === 'Enter' || e.key === ' ') handleDismiss();
       }}
       aria-label="Yadav Community Intro"
       className="fixed inset-0 z-50 h-[100dvh] w-screen flex items-center justify-center overflow-hidden cursor-pointer select-none"
@@ -95,21 +93,11 @@ export const SplashScreen: React.FC = () => {
               autoPlay
               playsInline
               preload="auto"
-              onEnded={dismissSplash}
+              onEnded={handleDismiss}
               onError={() => setVideoFailed(true)}
               aria-label="Yadav Community animated Krishna flute intro"
               className="w-full h-full object-cover object-center max-md:landscape:object-contain"
             />
-          )}
-
-          {/* Subtle muted icon indicator when mobile browser blocked autoplay audio until first tap */}
-          {autoplayMuted && !videoFailed && (
-            <span
-              aria-hidden="true"
-              className="pointer-events-none absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-black/35 backdrop-blur-xs border border-[#E9A526]/40 flex items-center justify-center text-[#F5D58B] animate-pulse"
-            >
-              <IgVolumeOffIcon className="w-4 h-4" />
-            </span>
           )}
 
           <span className="sr-only">Loading Yadav Community...</span>
