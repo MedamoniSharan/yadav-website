@@ -26,13 +26,11 @@ import { ASSETS } from '../../theme/tokens';
 interface HomeScreenProps {
   onOpenNotifications: () => void;
   onOpenAuth: () => void;
-  onSelectCreateMode: (mode: 'post' | 'video' | 'event') => void;
 }
 
 export const HomeScreen: React.FC<HomeScreenProps> = ({
   onOpenNotifications,
   onOpenAuth,
-  onSelectCreateMode,
 }) => {
   const {
     user,
@@ -85,24 +83,24 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
   const featuredBusinesses = useMemo(() => businesses.slice(0, 3), [businesses]);
 
   return (
-    <div className="min-h-screen bg-[#FFF8ED] pb-24 md:pb-10">
+    <div className="min-h-screen bg-[#FFF8ED] pb-24 md:pb-10 overflow-x-clip">
       {/* Krishna Navy Header matching Screen 2 */}
-      <header className="bg-krishna-header text-white px-4 pt-3.5 pb-4 rounded-b-[24px] shadow-[0_6px_20px_rgba(6,27,70,0.2)]">
+      <header className="bg-krishna-header text-white px-3 sm:px-4 pt-3.5 pb-4 rounded-b-[24px] shadow-[0_6px_20px_rgba(6,27,70,0.2)]">
         <div className="max-w-5xl mx-auto">
           {/* Top App Row */}
-          <div className="flex items-center justify-between gap-2">
-            <div className="flex items-center gap-2 min-w-0">
+          <div className="flex items-center justify-between gap-1.5 sm:gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
               <button
                 type="button"
                 onClick={() => setDrawerOpen(true)}
                 aria-label="Open menu"
-                className="min-w-[40px] min-h-[40px] -ml-1.5 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors cursor-pointer md:hidden"
+                className="min-w-[38px] min-h-[38px] sm:min-w-[40px] sm:min-h-[40px] -ml-1 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors cursor-pointer md:hidden"
               >
                 <IgMenuIcon className="w-6 h-6 text-white" />
               </button>
 
-              <div className="flex items-center gap-2 min-w-0">
-                <GoldenCowEmblem className="w-8 h-6 shrink-0" />
+              <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
+                <GoldenCowEmblem className="w-12 h-10 sm:w-14 sm:h-11 shrink-0 -mt-0.5 mx-1" />
                 <span className="font-display text-[22px] sm:text-2xl font-semibold text-[#F5D58B] tracking-wide truncate">
                   Yadav Community
                 </span>
@@ -224,36 +222,46 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
 
       {/* Main Content Container */}
       <div className="max-w-5xl mx-auto px-3.5 sm:px-6 pt-3 space-y-3.5">
-        {/* Global Community Banner matching Screen 2 */}
+        {/* Global Community Banner matching Screen 2 with Pop-Out Ornaments */}
         <section
           aria-label="Global Yadav Community Banner"
-          className="relative rounded-2xl overflow-hidden bg-gradient-to-r from-[#061B46] via-[#0B3C6E] to-[#07486B] text-white px-5 py-4 sm:py-5 shadow-md border border-[#E9A526]/40"
+          className="relative overflow-visible my-1.5 sm:my-2 text-white px-2 sm:px-8 py-3 sm:py-3.5"
         >
+          {/* Inner Clipped Navy Card Backdrop */}
           <div
-            className="pointer-events-none absolute inset-0 opacity-35"
-            style={{
-              background:
-                'radial-gradient(circle at 50% 45%, rgba(233,165,38,0.28) 0%, transparent 65%)',
-            }}
             aria-hidden="true"
-          />
+            className="absolute inset-0 rounded-2xl overflow-hidden bg-gradient-to-r from-[#061B46] via-[#0B3C6E] to-[#07486B] shadow-[0_8px_22px_rgba(6,27,70,0.18)] border border-[#E9A526]/45"
+          >
+            <div
+              className="pointer-events-none absolute inset-0 opacity-40"
+              style={{
+                background:
+                  'radial-gradient(circle at 50% 45%, rgba(233,165,38,0.32) 0%, transparent 65%)',
+              }}
+            />
+          </div>
+
+          {/* Left Peacock Feather: large & popping in-and-out of compact box */}
           <img
             src={ASSETS.peacockFeather}
             alt=""
             aria-hidden="true"
-            className="pointer-events-none select-none absolute -left-1 sm:left-2 -bottom-1 w-16 sm:w-20 h-16 sm:h-20 object-contain opacity-95 -rotate-6"
+            className="pointer-events-none select-none absolute z-20 -left-4 -bottom-4 sm:-left-5 sm:-bottom-5 w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 object-contain -rotate-12 drop-shadow-[0_6px_14px_rgba(6,27,70,0.45)]"
           />
+
+          {/* Right Golden Flute: large & popping in-and-out of compact box */}
           <img
             src={ASSETS.goldenFlute}
             alt=""
             aria-hidden="true"
-            className="pointer-events-none select-none absolute right-1 sm:right-3 bottom-1.5 w-20 sm:w-24 h-11 object-contain opacity-95 -rotate-12"
+            className="pointer-events-none select-none absolute z-20 -right-3 -bottom-3 sm:-right-4 sm:-bottom-4 w-28 h-16 sm:w-36 sm:h-20 md:w-44 md:h-24 object-contain -rotate-12 drop-shadow-[0_6px_14px_rgba(6,27,70,0.45)]"
           />
-          <div className="relative z-10 text-center px-10 sm:px-20">
-            <h2 className="font-display text-[19px] sm:text-[22px] font-semibold text-[#F5D58B] leading-tight drop-shadow-xs">
+
+          <div className="relative z-10 text-center px-8 sm:px-20 md:px-24">
+            <h2 className="font-display text-[17px] sm:text-[23px] md:text-[25px] font-semibold text-[#F5D58B] leading-tight tracking-normal sm:tracking-wide drop-shadow-xs">
               A Global Yadav Community
             </h2>
-            <p className="text-xs sm:text-[13px] text-white/90 mt-0.5">
+            <p className="text-[11px] sm:text-[13.5px] text-white/90 mt-0.5 leading-snug">
               for Business, Networking &amp; Growth.
             </p>
           </div>
@@ -263,56 +271,6 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
           {/* Primary Feed Column */}
           <div className="lg:col-span-8 space-y-3.5">
-            {/* Post Composer Bar */}
-            <div className="bg-white rounded-2xl border border-[#EADBC2]/80 px-3.5 py-2.5 shadow-[0_2px_8px_rgba(6,27,70,0.04)] flex items-center gap-2.5">
-              <button
-                type="button"
-                onClick={() => setActiveTab('profile')}
-                className="w-9 h-9 rounded-full overflow-hidden border border-[#E9A526]/60 shrink-0 cursor-pointer"
-              >
-                <SafeImage
-                  src={user.avatar}
-                  alt={user.fullName}
-                  className="w-full h-full object-cover"
-                />
-              </button>
-
-              <button
-                type="button"
-                onClick={() => {
-                  onSelectCreateMode('post');
-                  setActiveTab('create');
-                }}
-                className="flex-1 text-left px-3.5 py-2 rounded-full bg-[#FFF8ED] border border-[#EADBC2] text-[13px] text-[#667085] hover:border-[#D99B27] transition-colors truncate cursor-pointer"
-              >
-                Share a post or advertisement...
-              </button>
-
-              <button
-                type="button"
-                onClick={() => {
-                  onSelectCreateMode('post');
-                  setActiveTab('create');
-                }}
-                aria-label="Upload image post"
-                className="min-w-[38px] min-h-[38px] rounded-xl flex items-center justify-center text-[#0B347A] hover:bg-[#FFF8ED] transition-colors cursor-pointer shrink-0"
-              >
-                <IgPhotoIcon className="w-5 h-5" />
-              </button>
-
-              <button
-                type="button"
-                onClick={() => {
-                  onSelectCreateMode('video');
-                  setActiveTab('create');
-                }}
-                aria-label="Upload video post"
-                className="min-w-[38px] min-h-[38px] rounded-xl flex items-center justify-center text-[#0B347A] hover:bg-[#FFF8ED] transition-colors cursor-pointer shrink-0"
-              >
-                <IgReelsIcon className="w-5 h-5" />
-              </button>
-            </div>
-
             {/* Feed Segmented Navigation (For You | Following | Trending) */}
             <div className="bg-white rounded-full p-1 border border-[#EADBC2] shadow-xs grid grid-cols-3 gap-1">
               {(['For You', 'Following', 'Trending'] as FeedTab[]).map((tab) => {
@@ -535,7 +493,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           >
             <div className="bg-krishna-header text-white p-5">
               <div className="flex items-center justify-between mb-3">
-                <GoldenCowEmblem className="w-8 h-6" />
+                <GoldenCowEmblem className="w-12 h-10 -mt-0.5" />
                 <button
                   type="button"
                   onClick={() => setDrawerOpen(false)}

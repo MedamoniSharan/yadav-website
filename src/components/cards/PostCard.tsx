@@ -69,7 +69,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
         >
           {isFitZone ? (
             <div className="w-10 h-10 rounded-full bg-[#111827] border-2 border-[#E9A526] flex flex-col items-center justify-center shrink-0 shadow-sm">
-              <GoldenCowEmblem className="w-5 h-3.5" />
+              <GoldenCowEmblem className="w-5 h-3.5" walk={false} />
               <span className="text-[6px] font-extrabold tracking-wider text-[#F5D58B] leading-none">
                 FITZONE
               </span>

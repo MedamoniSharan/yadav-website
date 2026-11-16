@@ -4,12 +4,15 @@ import { ASSETS } from '../../theme/tokens';
 /**
  * Traditional golden cow emblem matching Screen 1 (Splash) and Screen 2 (Header & FitZone logo)
  */
-export const GoldenCowEmblem: React.FC<{ className?: string }> = ({ className = 'w-8 h-8' }) => (
+export const GoldenCowEmblem: React.FC<{ className?: string; walk?: boolean }> = ({
+  className = 'w-8 h-8',
+  walk = true,
+}) => (
   <img
     src={ASSETS.cowOutlinePack}
     alt=""
     aria-hidden="true"
-    className={`object-contain pointer-events-none select-none ${className}`}
+    className={`object-contain pointer-events-none select-none ${walk ? 'animate-cow-walk' : ''} ${className}`}
   />
 );
 
@@ -118,7 +121,7 @@ export const SafeImage: React.FC<{
         role="img"
         aria-label={alt}
       >
-        <GoldenCowEmblem className="w-8 h-8 mb-1 opacity-85" />
+        <GoldenCowEmblem className="w-8 h-8 mb-1 opacity-85" walk={false} />
         <span className="text-[11px] font-medium line-clamp-1">{fallbackLabel || alt}</span>
       </div>
     );

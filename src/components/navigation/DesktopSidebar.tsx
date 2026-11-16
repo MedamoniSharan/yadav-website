@@ -34,15 +34,17 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ onOpenNotificati
   return (
     <aside className="hidden md:flex flex-col w-64 lg:w-72 shrink-0 bg-krishna-header text-white min-h-screen sticky top-0 border-r border-[#E9A526]/20 shadow-xl z-30">
       {/* Brand Lockup */}
-      <div className="px-6 pt-6 pb-3">
+      <div className="px-4 lg:px-5 pt-6 pb-3">
         <button
           type="button"
           onClick={() => setActiveTab('home')}
-          className="flex items-center gap-3 text-left w-full cursor-pointer group"
+          className="flex items-center gap-2.5 text-left w-full cursor-pointer group"
         >
-          <GoldenCowEmblem className="w-9 h-9 shrink-0 transition-transform group-hover:scale-105" />
+          <span className="shrink-0 -mt-0.5 px-1 inline-flex items-center justify-center transition-transform group-hover:scale-105">
+            <GoldenCowEmblem className="w-12 h-10 lg:w-14 lg:h-12" />
+          </span>
           <div className="min-w-0">
-            <h1 className="font-display text-[22px] font-semibold tracking-wide text-[#F5D58B] leading-tight whitespace-nowrap">
+            <h1 className="font-display text-[21px] lg:text-[22px] font-semibold tracking-wide text-[#F5D58B] leading-tight whitespace-nowrap">
               Yadav Community
             </h1>
             <p className="text-[11px] text-white/75 tracking-wide whitespace-nowrap">

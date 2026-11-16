@@ -5,7 +5,6 @@ import { NotificationDrawer } from '../components/common/NotificationDrawer';
 import { BottomNav } from '../components/navigation/BottomNav';
 import { DesktopSidebar } from '../components/navigation/DesktopSidebar';
 import { useApp } from '../context/AppContext';
-import { PostContentType } from '../models/types';
 import { BusinessesScreen } from '../screens/BusinessesScreen/BusinessesScreen';
 import { CommunityScreen } from '../screens/CommunityScreen/CommunityScreen';
 import { CreatePostScreen } from '../screens/CreatePostScreen/CreatePostScreen';
@@ -24,7 +23,6 @@ export const AppRouter: React.FC = () => {
   } = useApp();
   const [notifOpen, setNotifOpen] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
-  const [createMode, setCreateMode] = useState<PostContentType>('post');
 
   const handleOpenNotifications = () => {
     setNotifOpen(true);
@@ -55,11 +53,10 @@ export const AppRouter: React.FC = () => {
               <HomeScreen
                 onOpenNotifications={handleOpenNotifications}
                 onOpenAuth={() => setAuthModalOpen(true)}
-                onSelectCreateMode={(mode) => setCreateMode(mode)}
               />
             )}
             {activeTab === 'businesses' && <BusinessesScreen />}
-            {activeTab === 'create' && <CreatePostScreen initialMode={createMode} />}
+            {activeTab === 'create' && <CreatePostScreen />}
             {activeTab === 'community' && <CommunityScreen />}
             {activeTab === 'profile' && (
               <ProfileScreen onOpenAuth={() => setAuthModalOpen(true)} />

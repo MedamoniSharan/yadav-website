@@ -76,7 +76,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
             </button>
           )}
           <div className="relative z-10 flex flex-col items-center text-center">
-            <GoldenCowEmblem className="w-10 h-8 mb-1.5" />
+            <GoldenCowEmblem className="w-14 h-12 mb-1" />
             <h2 className="font-display text-2xl font-semibold text-[#F5D58B]">
               {mode === 'login' && 'Welcome Back'}
               {mode === 'register' && 'Join Yadav Community'}

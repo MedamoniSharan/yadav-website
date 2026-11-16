@@ -47,6 +47,48 @@
   font-variant-numeric: tabular-nums;
 }
 
+@keyframes cow-walk-to-fro {
+  0% {
+    transform: translateX(-5px) translateY(0px) scaleX(1) rotate(0deg);
+  }
+  11% {
+    transform: translateX(-2.5px) translateY(-1.8px) scaleX(1) rotate(-2deg);
+  }
+  22% {
+    transform: translateX(0px) translateY(0px) scaleX(1) rotate(1.5deg);
+  }
+  33% {
+    transform: translateX(2.5px) translateY(-1.8px) scaleX(1) rotate(-2deg);
+  }
+  44% {
+    transform: translateX(5px) translateY(0px) scaleX(1) rotate(0deg);
+  }
+  50% {
+    transform: translateX(5px) translateY(0px) scaleX(-1) rotate(0deg);
+  }
+  61% {
+    transform: translateX(2.5px) translateY(-1.8px) scaleX(-1) rotate(-2deg);
+  }
+  72% {
+    transform: translateX(0px) translateY(0px) scaleX(-1) rotate(1.5deg);
+  }
+  83% {
+    transform: translateX(-2.5px) translateY(-1.8px) scaleX(-1) rotate(-2deg);
+  }
+  94% {
+    transform: translateX(-5px) translateY(0px) scaleX(-1) rotate(0deg);
+  }
+  100% {
+    transform: translateX(-5px) translateY(0px) scaleX(1) rotate(0deg);
+  }
+}
+
+.animate-cow-walk {
+  animation: cow-walk-to-fro 4.8s ease-in-out infinite;
+  transform-origin: center bottom;
+  will-change: transform;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
