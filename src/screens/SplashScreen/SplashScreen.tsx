@@ -7,56 +7,84 @@ import { ASSETS } from '../../theme/tokens';
 export const SplashScreen: React.FC = () => {
   const { dismissSplash } = useApp();
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [videoFailed, setVideoFailed] = useState(false);
+  const mutedFallbackRef = useRef(false);
+  const [showPosterFallback, setShowPosterFallback] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    const tryPlayUnmuted = async () => {
+    let cancelled = false;
+
+    const startPlayback = async () => {
+      // Always try unmuted playback with full sound first
       try {
+        video.defaultMuted = false;
         video.muted = false;
         video.volume = 1;
         await video.play();
+        mutedFallbackRef.current = false;
+        return;
       } catch {
-        // If browser blocks unmuted autoplay on cold load, play cleanly until unlocked
-        try {
-          video.muted = true;
-          await video.play();
-        } catch {
-          // Safety timeout handles dismissal if autoplay is blocked
+        // Browser policy blocked unmuted autoplay before user interaction;
+        // play muted inline until first tap unmutes it.
+      }
+
+      try {
+        video.defaultMuted = true;
+        video.muted = true;
+        await video.play();
+        if (!cancelled) {
+          mutedFallbackRef.current = true;
+        }
+      } catch {
+        // Strict iOS Low Power Mode blocked all video autoplay; show animated artwork fallback
+        if (!cancelled) {
+          setShowPosterFallback(true);
         }
       }
     };
 
-    tryPlayUnmuted();
+    startPlayback();
 
-    const tryUnmuteOnInteraction = () => {
+    const tryUnmuteOnKey = () => {
       unlockNotificationAudio();
-      if (video.muted) {
+      if (!cancelled && video.muted) {
+        video.defaultMuted = false;
         video.muted = false;
         video.volume = 1;
+        mutedFallbackRef.current = false;
         video.play().catch(() => {});
       }
     };
 
-    window.addEventListener('keydown', tryUnmuteOnInteraction, { passive: true, capture: true });
+    window.addEventListener('keydown', tryUnmuteOnKey, { passive: true, capture: true });
     return () => {
-      window.removeEventListener('keydown', tryUnmuteOnInteraction, { capture: true });
+      cancelled = true;
+      window.removeEventListener('keydown', tryUnmuteOnKey, { capture: true });
     };
   }, []);
 
-  // Safety timeout so users are never trapped if playback stalls or errors
+  // Safety timeout so users are never trapped if playback stalls or is blocked
   useEffect(() => {
-    const fallbackMs = videoFailed ? 2800 : 14000;
+    const fallbackMs = showPosterFallback ? 2800 : 14000;
     const timer = window.setTimeout(() => {
       dismissSplash();
     }, fallbackMs);
     return () => window.clearTimeout(timer);
-  }, [dismissSplash, videoFailed]);
+  }, [dismissSplash, showPosterFallback]);
 
   const handleDismiss = () => {
     unlockNotificationAudio();
+    const video = videoRef.current;
+    if (video && (video.muted || mutedFallbackRef.current) && !showPosterFallback) {
+      video.defaultMuted = false;
+      video.muted = false;
+      video.volume = 1;
+      mutedFallbackRef.current = false;
+      video.play().catch(() => {});
+      return;
+    }
     dismissSplash();
   };
 
@@ -79,8 +107,11 @@ export const SplashScreen: React.FC = () => {
       {/* Responsive Intro Video Frame fitting all mobile portrait, mobile landscape, tablet, and desktop screens */}
       <div className="relative h-full w-full flex items-center justify-center md:p-4">
         <div className="relative w-full h-full md:w-auto md:h-[min(94dvh,880px)] md:aspect-[9/16] md:max-w-[94vw] overflow-hidden md:rounded-3xl md:shadow-[0_24px_70px_rgba(0,0,0,0.55)] md:border md:border-[#E9A526]/35 bg-[#012856]">
-          {videoFailed ? (
-            <img
+          {showPosterFallback ? (
+            <motion.img
+              initial={{ scale: 1 }}
+              animate={{ scale: 1.04 }}
+              transition={{ duration: 2.8, ease: 'easeOut' }}
               src={ASSETS.krishnaSplash}
               alt="Yadav Community — Lord Krishna playing flute in Vrindavan with cows"
               className="w-full h-full object-cover object-center max-md:landscape:object-contain"
@@ -92,11 +123,13 @@ export const SplashScreen: React.FC = () => {
               poster={ASSETS.krishnaSplash}
               autoPlay
               playsInline
+              controls={false}
+              disablePictureInPicture
               preload="auto"
-              onEnded={handleDismiss}
-              onError={() => setVideoFailed(true)}
+              onEnded={dismissSplash}
+              onError={() => setShowPosterFallback(true)}
               aria-label="Yadav Community animated Krishna flute intro"
-              className="w-full h-full object-cover object-center max-md:landscape:object-contain"
+              className="w-full h-full object-cover object-center max-md:landscape:object-contain pointer-events-none"
             />
           )}
 

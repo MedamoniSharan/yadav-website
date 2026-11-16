@@ -464,9 +464,9 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                 </div>
                 <img
                   src={ASSETS.ornamentButterPot}
-                  alt=""
+                  alt="Makhan Matki"
                   aria-hidden="true"
-                  className="w-11 h-11 object-contain shrink-0"
+                  className="w-14 h-14 object-contain shrink-0 drop-shadow-[0_3px_8px_rgba(6,27,70,0.18)]"
                 />
               </div>
               <button

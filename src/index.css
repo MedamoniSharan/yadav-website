@@ -203,6 +203,14 @@
   transform-origin: 0px 0px;
 }
 
+video::-webkit-media-controls-start-playback-button,
+video::-webkit-media-controls-overlay-play-button {
+  display: none !important;
+  -webkit-appearance: none;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

@@ -84,30 +84,10 @@ export const CommunityScreen: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#FFF8ED] pb-24 md:pb-10 flex flex-col">
-      {/* Krishna Navy Header matching Screen 5 */}
-      <header className="bg-krishna-header text-white px-4 pt-3.5 pb-3.5 shadow-md">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <button
-            type="button"
-            onClick={navigateBack}
-            aria-label="Go back"
-            className="min-w-[44px] min-h-[44px] -ml-2 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors cursor-pointer"
-          >
-            <IgBackIcon className="w-5 h-5 text-white" />
-          </button>
-
-          <h1 className="font-display text-[24px] sm:text-[26px] font-semibold tracking-wide text-white">
-            Community
-          </h1>
-
-          <div className="w-[44px]" aria-hidden="true" />
-        </div>
-      </header>
-
-      {/* Vrindavan Krishna & Cow Banner matching Screen 5 */}
+      {/* Vrindavan Krishna & Cow Hero Banner */}
       <section
         aria-label="Our Community Stronger Together"
-        className="relative overflow-hidden bg-gradient-to-r from-[#0B347A] via-[#1C4B8C] to-[#E69A4C] h-36 sm:h-44"
+        className="relative overflow-hidden bg-gradient-to-r from-[#0B347A] via-[#1C4B8C] to-[#E69A4C] h-44 sm:h-52"
       >
         <img
           src={ASSETS.vrindavanSunset}
@@ -128,10 +108,19 @@ export const CommunityScreen: React.FC = () => {
           }}
         />
         <div className="relative z-20 max-w-4xl mx-auto h-full px-5 sm:px-6 flex flex-col justify-center">
-          <h2 className="font-display text-[24px] sm:text-[32px] font-semibold text-white leading-[1.1] drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] max-w-[215px] sm:max-w-sm">
+          <button
+            type="button"
+            onClick={navigateBack}
+            aria-label="Go back"
+            className="absolute top-3 left-3 sm:left-4 w-9 h-9 flex items-center justify-center rounded-full bg-black/25 hover:bg-black/40 text-white backdrop-blur-xs transition-colors cursor-pointer"
+          >
+            <IgBackIcon className="w-5 h-5" />
+          </button>
+
+          <h1 className="font-display text-[26px] sm:text-[34px] font-semibold text-white leading-[1.1] drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] max-w-[225px] sm:max-w-sm mt-3">
             Our Community
             <span className="block">Stronger Together</span>
-          </h2>
+          </h1>
         </div>
 
         {/* Soft cream curved wave bottom border */}
@@ -233,8 +222,8 @@ export const CommunityScreen: React.FC = () => {
         </div>
       </div>
 
-      {/* Bottom Golden Flute & Peacock Feather Accent matching Screen 5 */}
-      <div className="mt-8 pb-2 flex items-center justify-center gap-1 pointer-events-none select-none">
+      {/* Bottom Golden Flute, Makhan Matki & Peacock Feather Accent matching Screen 5 */}
+      <div className="mt-8 pb-2 flex items-center justify-center gap-2 pointer-events-none select-none">
         <img
           src={ASSETS.goldenFlute}
           alt=""
@@ -242,10 +231,16 @@ export const CommunityScreen: React.FC = () => {
           className="h-11 w-auto object-contain opacity-95 -rotate-3"
         />
         <img
+          src={ASSETS.makhanMatki}
+          alt=""
+          aria-hidden="true"
+          className="h-14 w-auto object-contain drop-shadow-[0_4px_10px_rgba(6,27,70,0.2)]"
+        />
+        <img
           src={ASSETS.peacockFeather}
           alt=""
           aria-hidden="true"
-          className="h-14 w-auto object-contain opacity-95 -ml-5 rotate-12"
+          className="h-14 w-auto object-contain opacity-95 -ml-2 rotate-12"
         />
       </div>
 

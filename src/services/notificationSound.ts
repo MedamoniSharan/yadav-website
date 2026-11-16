@@ -2,6 +2,11 @@ const SOUND_PREF_KEY = 'yadav_notif_sound_enabled';
 
 let sharedAudioCtx: AudioContext | null = null;
 let lastPlayedAt = 0;
+let audioUnlocked = false;
+
+export function hasUserUnlockedAudio(): boolean {
+  return audioUnlocked;
+}
 
 function getAudioContext(): AudioContext | null {
   if (typeof window === 'undefined') return null;
@@ -43,6 +48,7 @@ export function setNotificationSoundEnabled(enabled: boolean): void {
  * and warms up Speech Synthesis inside a user gesture.
  */
 export function unlockNotificationAudio(): void {
+  audioUnlocked = true;
   const ctx = getAudioContext();
   if (ctx) {
     try {
