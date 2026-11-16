@@ -279,7 +279,7 @@ export const BusinessHeroCarousel: React.FC<BusinessHeroCarouselProps> = ({
                 alt=""
                 aria-hidden="true"
                 referrerPolicy="no-referrer"
-                className="w-24 sm:w-32 h-7 sm:h-9 object-contain object-left -ml-1 mix-blend-multiply brightness-[1.12] contrast-[1.35] pointer-events-none select-none"
+                className="w-28 sm:w-36 h-8 sm:h-10 object-contain object-left -ml-1 pointer-events-none select-none"
               />
               <div className="flex items-start gap-2 sm:gap-3">
                 <h2 className="font-sans font-extrabold leading-[1.03] tracking-tight">
