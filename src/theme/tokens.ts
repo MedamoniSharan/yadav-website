@@ -45,6 +45,7 @@ export const ASSETS = {
   profileAvatar: '/assets/images/profile-avatar.png',
   peacockFeather: '/assets/images/ornaments/05_peacock_feather.png',
   peacockFeatherTransparent: '/assets/images/ornaments/05_peacock_feather.png',
+  peacockSidebar: '/assets/aistudio/image_ea1e708a.png',
   goldenFlute: '/assets/images/ornaments/06_golden_flute.png',
   goldDivider: '/assets/images/ornaments/15_golden_curved_divider.png',
   lotusGoldDivider: '/assets/images/ornaments/14_golden_lotus_divider.png',

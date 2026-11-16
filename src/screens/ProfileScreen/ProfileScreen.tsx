@@ -443,10 +443,10 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onOpenAuth }) => {
                   logoutUser();
                   onOpenAuth();
                 }}
-                className="w-full py-3 px-4 rounded-2xl bg-red-50 border border-red-200 text-sm font-semibold text-red-700 flex items-center justify-center gap-2 hover:bg-red-100 cursor-pointer"
+                className="w-full py-3 px-4 rounded-2xl bg-[#FEF2F2] border border-[#FECACA] text-sm font-semibold text-[#DC2626] flex items-center justify-center gap-2 hover:bg-[#FEE2E2] transition-colors cursor-pointer"
               >
-                <IgLogoutIcon className="w-4 h-4" />
-                <span>Sign Out / Switch Account</span>
+                <IgLogoutIcon className="w-4 h-4 text-[#DC2626]" />
+                <span>Sign Out</span>
               </button>
             </div>
           </div>

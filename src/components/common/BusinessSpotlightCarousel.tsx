@@ -116,7 +116,7 @@ const HERO_SLIDES: HeroSlide[] = [
     bgSize: '313% 104.3%',
     bgPosition: '0.8% 50%',
     maskGradient:
-      'linear-gradient(104deg, transparent 0%, transparent 14%, rgba(0,0,0,0.82) 34%, #000 52%)',
+      'linear-gradient(104deg, transparent 0%, transparent 22%, rgba(0,0,0,0.82) 42%, #000 56%)',
     cardGradient: 'linear-gradient(135deg, #FBF4EA 0%, #FCEFD9 55%, #F9DEC0 100%)',
   },
 ];
@@ -319,27 +319,27 @@ export const BusinessHeroCarousel: React.FC<BusinessHeroCarouselProps> = ({
               </div>
             </div>
           ) : (
-            <div className="relative z-10 w-[62%] sm:w-[54%] px-5 sm:px-8 pt-5 pb-11 sm:py-7 sm:pb-12 space-y-2 sm:space-y-2.5">
-              <p className="text-[13px] sm:text-base font-bold text-[#FA6400] tracking-tight leading-none">
+            <div className="relative z-10 w-[56%] sm:w-[50%] px-5 sm:px-8 pt-5 pb-11 sm:py-7 sm:pb-12 space-y-1.5 sm:space-y-2">
+              <p className="text-[11px] sm:text-[13px] font-bold text-[#FA6400] tracking-tight leading-none">
                 {activeSlide.eyebrow}
               </p>
-              <h2 className="font-sans text-[21px] sm:text-[31px] md:text-[34px] font-extrabold text-[#061B46] leading-[1.08] tracking-tight">
+              <h2 className="font-sans text-[17px] sm:text-[24px] md:text-[26px] font-extrabold text-[#061B46] leading-[1.1] tracking-tight">
                 <span className="block">{activeSlide.titleLines[0]}</span>
                 <span className="block">{activeSlide.titleLines[1]}</span>
               </h2>
-              <p className="text-[11.5px] sm:text-[14px] text-[#475467] leading-snug max-w-[240px] sm:max-w-[330px]">
+              <p className="text-[10.5px] sm:text-[12.5px] text-[#475467] leading-snug max-w-[190px] sm:max-w-[260px]">
                 {activeSlide.subtitle}
               </p>
               <div className="pt-1 sm:pt-1.5">
                 <button
                   type="button"
                   onClick={handleSlideCta}
-                  className="inline-flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full bg-[#FA6400] hover:bg-[#E85B00] text-white text-xs sm:text-sm font-semibold shadow-[0_6px_16px_rgba(250,100,0,0.28)] active:scale-95 transition-all cursor-pointer"
+                  className="inline-flex items-center gap-2 px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full bg-[#FA6400] hover:bg-[#E85B00] text-white text-[11.5px] sm:text-[13px] font-semibold shadow-[0_6px_16px_rgba(250,100,0,0.28)] active:scale-95 transition-all cursor-pointer"
                 >
                   <span>{activeSlide.cta}</span>
                   <svg
                     viewBox="0 0 20 20"
-                    className="w-3.5 h-3.5 sm:w-4 sm:h-4"
+                    className="w-3.5 h-3.5"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth={2.2}

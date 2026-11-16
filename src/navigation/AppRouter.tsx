@@ -42,7 +42,10 @@ export const AppRouter: React.FC = () => {
       <AnimatePresence>{showSplash && <SplashScreen />}</AnimatePresence>
 
       {/* Responsive Desktop Left Rail */}
-      <DesktopSidebar onOpenNotifications={handleOpenNotifications} />
+      <DesktopSidebar
+        onOpenNotifications={handleOpenNotifications}
+        onOpenAuth={() => setAuthModalOpen(true)}
+      />
 
       {/* Main Screen Content Area */}
       <main className="flex-1 min-w-0">

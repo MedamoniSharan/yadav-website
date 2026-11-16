@@ -16,98 +16,82 @@ export const BottomNav: React.FC = () => {
     setActiveTab(tab);
   };
 
+  const renderOuterTab = (
+    tab: Exclude<MainTabId, 'create'>,
+    label: string,
+    icon: React.ReactNode,
+  ) => {
+    const isActive = activeTab === tab;
+    return (
+      <button
+        key={tab}
+        type="button"
+        onClick={() => handleSelect(tab)}
+        aria-label={label}
+        aria-current={isActive ? 'page' : undefined}
+        title={label}
+        className={`w-12 h-12 mx-auto rounded-full flex items-center justify-center transition-all active:scale-95 cursor-pointer ${
+          isActive
+            ? 'bg-white text-[#18181B] shadow-[0_3px_12px_rgba(0,0,0,0.28)]'
+            : 'bg-white/[0.06] hover:bg-white/[0.14] border border-white/15 text-white/90'
+        }`}
+      >
+        {icon}
+      </button>
+    );
+  };
+
   return (
     <nav
       aria-label="Primary Mobile Navigation"
-      className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#EADBC2] shadow-[0_-4px_20px_rgba(6,27,70,0.08)]"
-      style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
+      className="md:hidden fixed left-1/2 -translate-x-1/2 z-40 w-[min(324px,calc(100vw-28px))]"
+      style={{ bottom: 'max(14px, env(safe-area-inset-bottom, 0px))' }}
     >
-      <div className="grid grid-cols-5 items-end h-[64px] max-w-lg mx-auto px-1">
-        {/* Home */}
-        <button
-          type="button"
-          onClick={() => handleSelect('home')}
-          className={`flex flex-col items-center justify-center min-h-[48px] py-1.5 transition-colors cursor-pointer ${
-            activeTab === 'home' ? 'text-[#061B46]' : 'text-[#5C6B84] hover:text-[#061B46]'
-          }`}
-        >
-          <IgHomeIcon className="w-[23px] h-[23px]" filled={activeTab === 'home'} />
-          <span
-            className={`text-[11px] mt-0.5 leading-tight whitespace-nowrap ${
-              activeTab === 'home' ? 'font-bold text-[#061B46]' : 'font-medium'
-            }`}
-          >
-            Home
-          </span>
-        </button>
+      <div className="bg-[#252527]/95 backdrop-blur-xl rounded-full p-2 border border-white/12 shadow-[0_14px_34px_rgba(6,27,70,0.34)]">
+        <div className="grid grid-cols-5 items-center gap-1.5">
+          {renderOuterTab('home', 'Home', <IgHomeIcon className="w-[22px] h-[22px]" filled={false} />)}
 
-        {/* Businesses */}
-        <button
-          type="button"
-          onClick={() => handleSelect('businesses')}
-          className={`flex flex-col items-center justify-center min-h-[48px] py-1.5 transition-colors cursor-pointer ${
-            activeTab === 'businesses' ? 'text-[#061B46]' : 'text-[#5C6B84] hover:text-[#061B46]'
-          }`}
-        >
-          <IgShopIcon className="w-[23px] h-[23px]" filled={activeTab === 'businesses'} />
-          <span
-            className={`text-[11px] mt-0.5 leading-tight whitespace-nowrap ${
-              activeTab === 'businesses' ? 'font-bold text-[#061B46]' : 'font-medium'
-            }`}
-          >
-            Businesses
-          </span>
-        </button>
+          {renderOuterTab(
+            'businesses',
+            'Businesses',
+            <IgShopIcon className="w-[21px] h-[21px]" filled={false} />,
+          )}
 
-        {/* Center Elevated Create (+) Button */}
-        <div className="flex flex-col items-center justify-end pb-2">
+          {/* Center Glowing Orb Create Button */}
           <button
             type="button"
             onClick={() => handleSelect('create')}
             aria-label="Create Post or Advertisement"
-            className={`w-[52px] h-[52px] -mt-5 rounded-full bg-gold-orb text-white flex items-center justify-center shadow-[0_6px_18px_rgba(233,165,38,0.55)] ring-4 ring-[#FFF8ED] transition-transform active:scale-95 cursor-pointer ${
-              activeTab === 'create' ? 'ring-[#E9A526]/40 scale-105' : ''
+            aria-current={activeTab === 'create' ? 'page' : undefined}
+            title="Publish & Promote"
+            className={`relative w-12 h-12 mx-auto rounded-full flex items-center justify-center transition-all active:scale-95 cursor-pointer overflow-hidden ${
+              activeTab === 'create'
+                ? 'ring-2 ring-white scale-105 shadow-[0_0_20px_rgba(250,100,0,0.6)]'
+                : 'ring-1 ring-white/30 shadow-[0_4px_16px_rgba(250,100,0,0.42)] hover:scale-105'
             }`}
+            style={{
+              background:
+                'radial-gradient(circle at 28% 24%, #FFF6D6 0%, rgba(255,246,214,0) 44%), radial-gradient(circle at 75% 22%, #A855F7 0%, rgba(168,85,247,0) 52%), radial-gradient(circle at 24% 78%, #38BDF8 0%, rgba(56,189,248,0) 54%), linear-gradient(135deg, #FBBF24 0%, #FA6400 50%, #EC4899 100%)',
+            }}
           >
-            <IgPlusIcon className="w-7 h-7" strokeWidth={2.5} />
+            <IgPlusIcon
+              className="w-6 h-6 text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.45)]"
+              strokeWidth={2.5}
+            />
           </button>
+
+          {renderOuterTab(
+            'community',
+            'Community',
+            <IgCommunityIcon className="w-[22px] h-[22px]" filled={false} />,
+          )}
+
+          {renderOuterTab(
+            'profile',
+            'Profile',
+            <IgProfileIcon className="w-[22px] h-[22px]" filled={false} />,
+          )}
         </div>
-
-        {/* Community */}
-        <button
-          type="button"
-          onClick={() => handleSelect('community')}
-          className={`flex flex-col items-center justify-center min-h-[48px] py-1.5 transition-colors cursor-pointer ${
-            activeTab === 'community' ? 'text-[#061B46]' : 'text-[#5C6B84] hover:text-[#061B46]'
-          }`}
-        >
-          <IgCommunityIcon className="w-[23px] h-[23px]" filled={activeTab === 'community'} />
-          <span
-            className={`text-[11px] mt-0.5 leading-tight whitespace-nowrap ${
-              activeTab === 'community' ? 'font-bold text-[#061B46]' : 'font-medium'
-            }`}
-          >
-            Community
-          </span>
-        </button>
-
-        {/* Profile */}
-        <button
-          type="button"
-          onClick={() => handleSelect('profile')}
-          className={`flex flex-col items-center justify-center min-h-[48px] py-1.5 transition-colors cursor-pointer ${
-            activeTab === 'profile' ? 'text-[#061B46]' : 'text-[#5C6B84] hover:text-[#061B46]'
-          }`}
-        >
-          <IgProfileIcon className="w-[23px] h-[23px]" filled={activeTab === 'profile'} />
-          <span
-            className={`text-[11px] mt-0.5 leading-tight whitespace-nowrap ${
-              activeTab === 'profile' ? 'font-bold text-[#061B46]' : 'font-medium'
-            }`}
-          >
-            Profile
-          </span>
-        </button>
       </div>
     </nav>
   );

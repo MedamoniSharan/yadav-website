@@ -1,6 +1,7 @@
 import React from 'react';
 import { useApp } from '../../context/AppContext';
 import { MainTabId } from '../../models/types';
+import { ASSETS } from '../../theme/tokens';
 import {
   GoldenCowEmblem,
   OrnamentalGoldDivider,
@@ -12,6 +13,7 @@ import {
   IgCommunityIcon,
   IgCreateSquareIcon,
   IgHomeIcon,
+  IgLogoutIcon,
   IgProfileIcon,
   IgShopIcon,
   IgSparklesIcon,
@@ -19,10 +21,22 @@ import {
 
 interface DesktopSidebarProps {
   onOpenNotifications: () => void;
+  onOpenAuth?: () => void;
 }
 
-export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ onOpenNotifications }) => {
-  const { activeTab, setActiveTab, user, unreadNotificationsCount, replaySplash } = useApp();
+export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
+  onOpenNotifications,
+  onOpenAuth,
+}) => {
+  const {
+    activeTab,
+    setActiveTab,
+    user,
+    unreadNotificationsCount,
+    replaySplash,
+    isAuthenticated,
+    logoutUser,
+  } = useApp();
 
   const navItems: { id: MainTabId; label: string; icon: React.ReactNode }[] = [
     { id: 'home', label: 'Home Feed', icon: <IgHomeIcon className="w-5 h-5" filled={activeTab === 'home'} /> },
@@ -107,7 +121,22 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ onOpenNotificati
       </nav>
 
       {/* Member Card & Splash Replay */}
-      <div className="p-4 border-t border-white/10 space-y-3">
+      <div className="p-4 border-t border-white/10 space-y-3 relative overflow-hidden">
+        <div className="flex items-end justify-between gap-2 px-1">
+          <div className="pb-1 min-w-0">
+            <p className="font-display text-xs font-semibold text-[#F5D58B]">
+              Yadav Community
+            </p>
+            <p className="text-[10.5px] text-white/70 leading-snug">
+              Heritage &amp; Enterprise
+            </p>
+          </div>
+          <img
+            src={ASSETS.peacockSidebar}
+            alt="Peacock Heritage Ornament"
+            className="w-16 h-20 object-contain object-bottom shrink-0 drop-shadow-[0_4px_10px_rgba(0,0,0,0.35)] pointer-events-none select-none"
+          />
+        </div>
         <button
           type="button"
           onClick={replaySplash}
@@ -135,6 +164,20 @@ export const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ onOpenNotificati
             <p className="text-[11px] text-white/70 truncate">{user.location}</p>
           </div>
         </button>
+
+        {isAuthenticated && (
+          <button
+            type="button"
+            onClick={() => {
+              logoutUser();
+              onOpenAuth?.();
+            }}
+            className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-full bg-red-500/15 hover:bg-red-500/25 border border-red-400/35 text-xs font-semibold text-red-200 transition-colors cursor-pointer"
+          >
+            <IgLogoutIcon className="w-4 h-4 text-[#F87171] shrink-0" />
+            <span>Sign Out</span>
+          </button>
+        )}
       </div>
     </aside>
   );

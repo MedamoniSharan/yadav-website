@@ -16,6 +16,7 @@ import {
   IgChevronRightIcon,
   IgCloseIcon,
   IgCommunityIcon,
+  IgLogoutIcon,
   IgMenuIcon,
   IgPhotoIcon,
   IgShopIcon,
@@ -58,10 +59,8 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
       const matchesTab =
         feedTab === 'For You'
           ? post.feedTabs.includes('For You')
-          : feedTab === 'Following'
-            ? post.feedTabs.includes('Following') ||
-              businesses.some((b) => b.id === post.businessId && b.isFollowed)
-            : post.feedTabs.includes('Trending') || post.likesCount >= 200;
+          : post.feedTabs.includes('Following') ||
+            businesses.some((b) => b.id === post.businessId && b.isFollowed);
 
       const matchesQuick =
         homeQuickFilter === 'all'
@@ -216,25 +215,37 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
           {/* Primary Feed Column */}
           <div className="lg:col-span-8 space-y-3.5">
-            {/* Feed Segmented Navigation (For You | Following | Trending) */}
-            <div className="bg-white rounded-full p-1 border border-[#EADBC2] shadow-xs grid grid-cols-3 gap-1">
-              {(['For You', 'Following', 'Trending'] as FeedTab[]).map((tab) => {
-                const active = feedTab === tab;
-                return (
-                  <button
-                    key={tab}
-                    type="button"
-                    onClick={() => setFeedTab(tab)}
-                    className={`py-2 px-3 rounded-full text-[13px] font-semibold transition-all whitespace-nowrap cursor-pointer ${
-                      active
-                        ? 'bg-royal-pill text-white shadow-sm'
-                        : 'text-[#061B46]/75 hover:text-[#061B46] hover:bg-[#FFF8ED]'
-                    }`}
-                  >
-                    {tab}
-                  </button>
-                );
-              })}
+            {/* Feed Segmented Navigation (For You | Following) */}
+            <div className="border-b border-[#EADBC2]/90">
+              <div className="grid grid-cols-2 items-center max-w-md mx-auto sm:max-w-none">
+                {(['For You', 'Following'] as FeedTab[]).map((tab) => {
+                  const active = feedTab === tab;
+                  return (
+                    <button
+                      key={tab}
+                      type="button"
+                      onClick={() => setFeedTab(tab)}
+                      className="relative flex flex-col items-center justify-center pt-1 pb-2.5 cursor-pointer group"
+                    >
+                      <span
+                        className={`px-6 py-2 rounded-full text-[14px] font-semibold transition-all whitespace-nowrap ${
+                          active
+                            ? 'bg-[#FA6400] text-white shadow-[0_4px_12px_rgba(250,100,0,0.28)]'
+                            : 'text-[#061B46]/80 group-hover:text-[#061B46] group-hover:bg-[#061B46]/5'
+                        }`}
+                      >
+                        {tab}
+                      </span>
+                      {active && (
+                        <span
+                          aria-hidden="true"
+                          className="absolute bottom-0 w-14 h-[2.5px] rounded-full bg-[#FA6400]"
+                        />
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             {/* Active Quick / Category Filter Indicator */}
@@ -453,21 +464,31 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
       {/* Mobile Slide-Out Menu Drawer */}
       {drawerOpen && (
         <div
-          className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex md:hidden"
+          className="fixed inset-0 z-50 h-[100dvh] bg-black/50 backdrop-blur-xs flex md:hidden"
           onClick={() => setDrawerOpen(false)}
         >
           <div
-            className="w-72 bg-[#FFF8ED] h-full shadow-2xl flex flex-col border-r border-[#EADBC2]"
+            className="w-72 bg-[#FFF8ED] h-full max-h-[100dvh] shadow-2xl flex flex-col border-r border-[#EADBC2] overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="bg-krishna-header text-white p-5">
-              <div className="flex items-center justify-between mb-3">
-                <GoldenCowEmblem className="w-12 h-10 -mt-0.5" />
+            <div className="bg-krishna-header text-white p-4 shrink-0">
+              <div className="flex items-center justify-between gap-2 mb-3.5">
+                <div className="flex items-center gap-2 min-w-0">
+                  <GoldenCowEmblem className="w-11 h-9 shrink-0 -mt-0.5" />
+                  <div className="min-w-0">
+                    <span className="block font-display text-[17px] font-semibold text-[#F5D58B] leading-tight truncate">
+                      Yadav Community
+                    </span>
+                    <span className="block text-[10px] text-white/75 tracking-wide">
+                      Connect • Promote • Grow
+                    </span>
+                  </div>
+                </div>
                 <button
                   type="button"
                   onClick={() => setDrawerOpen(false)}
                   aria-label="Close menu"
-                  className="p-1.5 rounded-full hover:bg-white/10 cursor-pointer"
+                  className="p-1.5 rounded-full hover:bg-white/10 shrink-0 cursor-pointer"
                 >
                   <IgCloseIcon className="w-5 h-5" />
                 </button>
@@ -488,54 +509,76 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
               </div>
             </div>
 
-            <div className="flex-1 p-4 space-y-1.5 text-sm font-medium text-[#061B46]">
-              <button
-                type="button"
-                onClick={() => {
-                  setDrawerOpen(false);
-                  setActiveTab('businesses');
-                }}
-                className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white cursor-pointer"
-              >
-                <IgShopIcon className="w-4 h-4 text-[#D99B27]" />
-                <span>Business Directory</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setDrawerOpen(false);
-                  setActiveTab('community');
-                }}
-                className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white cursor-pointer"
-              >
-                <IgCommunityIcon className="w-4 h-4 text-[#D99B27]" />
-                <span>Community Groups</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setDrawerOpen(false);
-                  setActiveTab('create');
-                }}
-                className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white cursor-pointer"
-              >
-                <IgPhotoIcon className="w-4 h-4 text-[#D99B27]" />
-                <span>Publish Advertisement</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setDrawerOpen(false);
-                  replaySplash();
-                }}
-                className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white cursor-pointer"
-              >
-                <IgSparklesIcon className="w-4 h-4 text-[#D99B27]" />
-                <span>View Welcome Splash</span>
-              </button>
+            <div className="flex-1 overflow-y-auto px-4 pt-3.5 pb-2 flex flex-col justify-between gap-3">
+              <div className="space-y-1 text-sm font-medium text-[#061B46]">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setDrawerOpen(false);
+                    setActiveTab('businesses');
+                  }}
+                  className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white cursor-pointer"
+                >
+                  <IgShopIcon className="w-4 h-4 text-[#D99B27]" />
+                  <span>Business Directory</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setDrawerOpen(false);
+                    setActiveTab('community');
+                  }}
+                  className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white cursor-pointer"
+                >
+                  <IgCommunityIcon className="w-4 h-4 text-[#D99B27]" />
+                  <span>Community Groups</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setDrawerOpen(false);
+                    setActiveTab('create');
+                  }}
+                  className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white cursor-pointer"
+                >
+                  <IgPhotoIcon className="w-4 h-4 text-[#D99B27]" />
+                  <span>Publish Advertisement</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setDrawerOpen(false);
+                    replaySplash();
+                  }}
+                  className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl hover:bg-white cursor-pointer"
+                >
+                  <IgSparklesIcon className="w-4 h-4 text-[#D99B27]" />
+                  <span>View Welcome Splash</span>
+                </button>
+              </div>
+
+              {/* Peacock Heritage Artwork inside Sidebar Drawer */}
+              <div className="relative flex items-end justify-between gap-2 pt-1 px-1">
+                <div className="pb-2 space-y-0.5 max-w-[125px]">
+                  <p className="font-display text-xs font-bold text-[#061B46]">
+                    Yadav Heritage
+                  </p>
+                  <p className="text-[10.5px] leading-snug text-[#667085]">
+                    Uniting community founders &amp; culture.
+                  </p>
+                </div>
+                <img
+                  src={ASSETS.peacockSidebar}
+                  alt="Peacock Heritage Ornament"
+                  className="w-28 h-32 object-contain object-bottom shrink-0 drop-shadow-[0_6px_14px_rgba(6,27,70,0.16)] pointer-events-none select-none"
+                />
+              </div>
             </div>
 
-            <div className="p-4 border-t border-[#EADBC2]">
+            <div
+              className="px-4 py-3.5 border-t border-[#EADBC2] bg-[#FFF8ED] shrink-0"
+              style={{ paddingBottom: 'max(14px, env(safe-area-inset-bottom, 0px))' }}
+            >
               {isAuthenticated ? (
                 <button
                   type="button"
@@ -544,9 +587,10 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                     logoutUser();
                     onOpenAuth();
                   }}
-                  className="w-full py-2.5 rounded-full border border-[#0B347A] text-[#0B347A] text-xs font-semibold cursor-pointer"
+                  className="w-full py-2.5 px-4 rounded-full bg-[#FEF2F2] hover:bg-[#FEE2E2] active:scale-[0.99] border border-[#FECACA] text-[#DC2626] text-xs font-semibold flex items-center justify-center gap-2 transition-all shadow-xs cursor-pointer"
                 >
-                  Switch Account / Sign Out
+                  <IgLogoutIcon className="w-4 h-4 text-[#DC2626] shrink-0" />
+                  <span>Sign Out</span>
                 </button>
               ) : (
                 <button
