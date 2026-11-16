@@ -89,7 +89,7 @@ export const BusinessesScreen: React.FC = () => {
   }, [posts, selectedBusiness]);
 
   return (
-    <div className="min-h-screen bg-[#FFF8ED] pb-24 md:pb-10 flex flex-col">
+    <div className="min-h-screen bg-[#FFF8ED] pb-24 md:pb-2 flex flex-col">
       {/* Krishna Navy Header matching Screen 3 */}
       <header className="relative bg-krishna-header text-white px-4 pt-3.5 pb-5 rounded-b-[24px] shadow-[0_6px_20px_rgba(6,27,70,0.2)] overflow-hidden">
         <img

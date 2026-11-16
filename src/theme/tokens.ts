@@ -29,7 +29,7 @@ export const ASSETS = {
   vrindavanNightMoon: '/assets/images/vrindavan-night-moon.png',
   vrindavanSunsetSky: '/assets/images/vrindavan-sunset-sky.png',
   vrindavanProfileCover: '/assets/images/vrindavan-profile-cover-hd.png',
-  vrindavanCreamSilhouette: '/assets/images/vrindavan-cream-silhouette.png',
+  vrindavanCreamSilhouette: '/assets/aistudio/3dbc635c-7810-43e8-a723-e4fd9ae5d860_0e1076dd.png',
   homeCommunityBanner: '/assets/images/home-community-banner.png',
   fitzoneAd: '/assets/images/fitzone-ad.png',
   fitzoneCard: '/assets/images/fitzone-card.png',
